@@ -53,19 +53,24 @@ class StoriesController < ApplicationController
 
   # POST /stories
   # POST /stories.json
-  #def create
-    #@story = Story.new(params[:story])
+  def create
+    @story = Story.new(params[:story].merge creator: current_user)
 
-    #respond_to do |format|
-      #if @story.save
-        #format.html { redirect_to @story, notice: 'Story was successfully created.' }
-        #format.json { render json: @story, status: :created, location: @story }
-      #else
-        #format.html { render action: "new" }
-        #format.json { render json: @story.errors, status: :unprocessable_entity }
-      #end
-    #end
-  #end
+    if @story.save
+      params[:path_nodes].each do |path_node_params|
+        @story.path_nodes.create path_node_params
+      end
+
+      respond_to do |format|
+        format.html { redirect_to @story }
+        format.json { render action: :show, status: :created, location: @story }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @story.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # PUT /stories/1
   # PUT /stories/1.json
