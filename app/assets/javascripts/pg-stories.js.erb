@@ -1,19 +1,20 @@
 (function($) {
 
+var pg = '.pg-stories';
 var map;
 
 $(function() {
 	initMap();
 
 	$(document)
-	.on('click', '.search-results li', function(e) {
+	.on('click', pg + ' .search-results li', function(e) {
 
 	})
-	.on('ajax:beforeSend', '.form-search', function(e, result) {
+	.on('ajax:beforeSend', pg + ' .form-search', function(e, result) {
 
 		
 	})
-	.on('ajax:success', '.form-search', function(e, result) {
+	.on('ajax:success', pg + ' .form-search', function(e, result) {
 		var storiesEl = [];
 
 		$.each(result, function(idx, story) {

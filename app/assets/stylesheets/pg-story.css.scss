@@ -1,7 +1,142 @@
-html, body {
-	height: 100%;
-}
-
 .pg-story {
-	height: 100%;
+	.bg {
+		width: 100%;
+		height: 850px;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		background-repeat: 50%;
+		background-position: 50% bottom;
+		position: absolute;
+		z-index: 0;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		transition: opacity 1000ms ease-in-out;
+		-moz-transition: opacity 1000ms ease-in-out;
+		-webkit-transition: opacity 1000ms ease-in-out;
+	}
+
+	.center {
+		position: relative;
+		z-index: 1;
+	}
+
+	.header {
+		height: 100px;
+		@include clearfix
+	}
+
+	.logo {
+		position: fixed;
+		top: 10px;
+		right: 10px;
+	}
+
+	.story-title {
+		color: #fff;
+		margin-top: 30px;
+		float: left;
+		font-size: 32px;
+		padding-left: 58px;
+		background: image-url("icon-ride.png") 0 center no-repeat;
+	}
+
+	.like {
+		float: right;
+		margin-top: 38px;
+	}
+
+	.map-container {
+		height: 495px;
+	}
+
+	.chart {
+		background-color: #fff;
+		height: 100px;
+		margin-bottom: 36px;
+		@include border-radius(4px, 4px, 0, 0);
+		@include box-shadow(0, -4px, 204px, rgba(0,0,0,0.2));
+	}
+
+	.info {
+		color: #fff;
+
+		table {
+			width: 100%;
+		}
+
+		thead {
+			font-size: 16px;
+		}
+
+		tbody {
+			font-size: 30px;
+		}
+
+		.difficulty {
+			text-align: right;
+		}
+
+		td.difficulty {
+			color: #fff3a6;
+		}
+
+		.what {
+			font-size: 12px;
+		}
+	}
+
+	.images {
+		@include clearfix;
+
+		li {
+			float: left;
+			margin-right: 15px;
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+
+		img {
+			width: 99px;
+			height: 98px;
+			display: block;
+		}
+	}
+
+	.intro {
+		padding-bottom: 40px;
+		margin-bottom: 40px;
+		border-bottom: 4px dashed #ddd;
+	}
+
+	.main {
+		@include clearfix;
+	}
+
+	.comments {
+		float: left;
+		width: 640px;
+	}
+
+	.share {
+		float: right;
+		width: 230px;
+
+		& > div {
+			margin-bottom: 20px;
+		}
+
+		h5 {
+			background-color: #e5eaea;
+			font-size: 20px;
+			padding-left: 5px;
+			height: 33px;
+			line-height: 33px;
+			@include radius();
+		}
+	}
 }
