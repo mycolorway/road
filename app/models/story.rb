@@ -2,17 +2,17 @@
 #
 # Table name: stories
 #
-#  id                 :integer         not null, primary key
+#  id                 :integer(4)      not null, primary key
 #  title              :string(255)     not null
 #  content            :text
-#  creator_id         :integer         not null
+#  creator_id         :integer(4)      not null
 #  created_at         :datetime        not null
 #  updated_at         :datetime        not null
-#  total_distance_km  :decimal(, )     not null
-#  total_climbing_m   :decimal(, )     not null
-#  total_descending_m :decimal(, )     not null
-#  subtype            :integer         not null
-#  difficulty_index   :decimal(, )     not null
+#  total_distance_km  :integer(10)     not null
+#  total_climbing_m   :integer(10)     not null
+#  total_descending_m :integer(10)     not null
+#  subtype            :integer(1)      not null
+#  difficulty_index   :integer(10)     not null
 #
 
 class Story < ActiveRecord::Base
@@ -30,14 +30,13 @@ class Story < ActiveRecord::Base
   validates :title, :creator, presence: true
 
   before_validation do
-    self.total_distance_km = self.class.cal_total_distance path_nodes \
-      if total_distance_km.blank?
+    self.total_distance_km = cal_total_distance if total_distance_km.blank?
 
     self.total_climbing_m, self.total_descending_m = \
-      self.class.cal_total_climbing_and_descending path_nodes \
+      cal_total_climbing_and_descending \
       if total_climbing_m.blank? || total_descending_m.blank?
 
-    self.difficulty_index = self.cal_difficulty_index if difficulty_index.blank?
+    self.difficulty_index = cal_difficulty_index if difficulty_index.blank?
   end
 
   # ------
@@ -77,11 +76,23 @@ class Story < ActiveRecord::Base
   # attributes
   # ----------
 
-  def static_map_url_baidu(width=100, height=100)
-    center_lat = (path_nodes.map(&:latitude).inject{ |sum, ele| sum + ele } / path_nodes.length).round(6)
-    center_lng = (path_nodes.map(&:longitude).inject{ |sum, ele| sum + ele } / path_nodes.length).round(6)
+  def has_path?
+    1 < path_nodes.count
+  end
 
-    points_query = path_nodes.map{ |node| "#{node.longitude.round(6)},#{node.latitude.round(6)}"}.join(';')
+  def static_map_url_baidu(width=100, height=100)
+    center_lat = (path_nodes.map(&:latitude).inject{ |sum, ele| sum + ele } / \
+                  path_nodes.length).round(6)
+    center_lng = (path_nodes.map(&:longitude).inject{ |sum, ele| sum + ele } / \
+                  path_nodes.length).round(6)
+
+    points_query = path_nodes.map do |node|
+      if node.baidu_lat && node.baidu_lng
+        "#{node.baidu_lng.round(6)},#{node.baidu_lat.round(6)}"
+      else
+        nil
+      end
+    end.compact.join(';')
 
     'http://api.map.baidu.com/staticimage?'\
       "center=#{center_lng},#{center_lat}&width=#{width}&height=#{height}&"\
@@ -99,7 +110,14 @@ class Story < ActiveRecord::Base
   # --------------
   # business logic
   # --------------
-  def self.cal_total_distance(path_nodes)
+  def update_stat!
+    self.total_distance_km = nil
+    self.total_climbing_m = nil
+    self.total_descending_m = nil
+    self.save!
+  end
+
+  def cal_total_distance
     result = 0
     path_nodes.each_with_index do |cur_node, idx|
       next if 0 == idx
@@ -113,7 +131,7 @@ class Story < ActiveRecord::Base
     result
   end
 
-  def self.cal_total_climbing_and_descending(path_nodes)
+  def cal_total_climbing_and_descending
     climbing = 0
     descending = 0
 
@@ -133,14 +151,18 @@ class Story < ActiveRecord::Base
   end
 
   def cal_difficulty_index
-    t = path_nodes.maximum(:elevation)
-    d = total_distance_km * 1000
-    if biking?
-      h = t - path_nodes.minimum(:elevation)
-      (h * 100 / d) * 2 + h * h / d + d / 1000 + (t - 1000) / 100
+    if has_path?
+      t = path_nodes.maximum(:elevation)
+      d = total_distance_km * 1000
+      if biking?
+        h = t - path_nodes.minimum(:elevation)
+        (h * 100 / d) * 2 + h * h / d + d / 1000 + (t - 1000) / 100
+      else
+        c = total_climbing_m
+        0.1 * c * c / d + 40 * c / d + d / 1000 + t / 1000
+      end
     else
-      c = total_climbing_m
-      0.1 * c * c / d + 40 * c / d + d / 1000 + t / 1000
+      0
     end
   end
 end

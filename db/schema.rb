@@ -11,21 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130720181939) do
+ActiveRecord::Schema.define(:version => 20130720184116) do
 
   create_table "geo_points", :force => true do |t|
-    t.string   "sti_type",                              :null => false
-    t.decimal  "latitude",                              :null => false
-    t.decimal  "longitude",                             :null => false
-    t.decimal  "elevation",                             :null => false
-    t.datetime "attributes_updated_at",                 :null => false
-    t.integer  "story_id",                              :null => false
+    t.string   "sti_type",                                                                          :null => false
+    t.decimal  "latitude",                           :precision => 10, :scale => 6,                 :null => false
+    t.decimal  "longitude",                          :precision => 10, :scale => 6,                 :null => false
+    t.decimal  "elevation",                          :precision => 10, :scale => 2,                 :null => false
+    t.datetime "attributes_updated_at",                                                             :null => false
+    t.integer  "story_id",                                                                          :null => false
     t.integer  "creator_id"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.integer  "subtype",               :default => 0,  :null => false
+    t.datetime "created_at",                                                                        :null => false
+    t.datetime "updated_at",                                                                        :null => false
+    t.integer  "subtype",               :limit => 1,                                :default => 0,  :null => false
     t.text     "description"
-    t.string   "title",                 :default => "", :null => false
+    t.string   "title",                                                             :default => "", :null => false
+    t.integer  "baidu_id"
+    t.decimal  "baidu_lat",                          :precision => 10, :scale => 6
+    t.decimal  "baidu_lng",                          :precision => 10, :scale => 6
   end
 
   add_index "geo_points", ["creator_id"], :name => "index_geo_points_on_creator_id"
@@ -43,16 +46,16 @@ ActiveRecord::Schema.define(:version => 20130720181939) do
   add_index "photos", ["story_id"], :name => "index_photos_on_story_id"
 
   create_table "stories", :force => true do |t|
-    t.string   "title",              :null => false
+    t.string   "title",                                                          :null => false
     t.text     "content"
-    t.integer  "creator_id",         :null => false
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.decimal  "total_distance_km",  :null => false
-    t.decimal  "total_climbing_m",   :null => false
-    t.decimal  "total_descending_m", :null => false
-    t.integer  "subtype",            :null => false
-    t.decimal  "difficulty_index",   :null => false
+    t.integer  "creator_id",                                                     :null => false
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
+    t.decimal  "total_distance_km",               :precision => 10, :scale => 0, :null => false
+    t.decimal  "total_climbing_m",                :precision => 10, :scale => 0, :null => false
+    t.decimal  "total_descending_m",              :precision => 10, :scale => 0, :null => false
+    t.integer  "subtype",            :limit => 1,                                :null => false
+    t.decimal  "difficulty_index",                :precision => 10, :scale => 0, :null => false
   end
 
   add_index "stories", ["creator_id"], :name => "index_stories_on_creator_id"

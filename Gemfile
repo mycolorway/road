@@ -18,7 +18,7 @@ gem 'devise'#, github: 'plataformatec/devise', tag: 'v3.0.0.rc'
 gem 'devise-i18n'
 gem 'cancan'
 gem 'simple_form'#, github: 'plataformatec/simple_form', tag: 'v3.0.0.rc'
-gem 'draper'
+#gem 'draper'
 gem 'kaminari'
 #gem 'slim-rails'
 gem 'jbuilder'
@@ -32,8 +32,9 @@ gem 'thin'
 gem 'quiet_assets'
 gem 'nokogiri'
 gem 'geocoder'
+gem 'mysql2'
+#gem 'sqlite3'
 
-gem 'sqlite3'
 
 
 # Gems used only for assets and not required

@@ -69,6 +69,8 @@ class StoriesController < ApplicationController
         @story.path_nodes.create path_node_params
       end
 
+      @story.update_stat!
+
       respond_to do |format|
         format.html { redirect_to @story }
         format.json { render action: :show, status: :created, location: @story }

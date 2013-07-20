@@ -1,9 +1,9 @@
 class AddDistanceClimbingDescendingToStory < ActiveRecord::Migration
   def up
     change_table :stories do |t|
-      t.decimal :total_distance_km
-      t.decimal :total_climbing_m
-      t.decimal :total_descending_m
+      t.decimal :total_distance_km, precision: 10, scale: 2
+      t.decimal :total_climbing_m, precision: 10, scale: 2
+      t.decimal :total_descending_m, precision: 10, scale: 2
     end
 
     Story.find_each do |story|

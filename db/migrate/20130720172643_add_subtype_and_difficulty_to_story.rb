@@ -2,7 +2,7 @@ class AddSubtypeAndDifficultyToStory < ActiveRecord::Migration
   def up
     change_table :stories do |t|
       t.column :subtype, 'tinyint unsigned'
-      t.decimal :difficulty_index
+      t.decimal :difficulty_index, precision: 10, scale: 2
     end
 
     # save each instance intead of `Story.update_all`
