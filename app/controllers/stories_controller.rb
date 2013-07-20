@@ -1,4 +1,6 @@
 class StoriesController < ApplicationController
+  before_filter :authenticate_user!, only: :by_user
+
   # GET /stories
   # GET /stories.json
   def index
@@ -17,6 +19,12 @@ class StoriesController < ApplicationController
     require_params :q
 
     @stories = Story.by_keyword(params[:q]).page params[:page]
+
+    render :index
+  end
+
+  def by_user
+    @stories = User.find(params[:user_id]).stories
 
     render :index
   end
