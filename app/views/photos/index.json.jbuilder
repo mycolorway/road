@@ -1,1 +1,4 @@
-json.array! @photos.map{ |photo| photo.attachment.url }
+json.array! @photos do |photo|
+  json.full photo.attachment.url
+  json.thumb photo.attachment.thumb.url
+end
