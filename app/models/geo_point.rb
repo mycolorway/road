@@ -20,6 +20,8 @@ class GeoPoint < ActiveRecord::Base
   belongs_to :story
   belongs_to :creator, class_name: 'User'
 
+  validates :story, :creator, presence: true
+
   before_validation do
     self.attributes_updated_at = Time.now if attributes_updated_at.blank?
   end
