@@ -27,6 +27,8 @@ gem 'foreman', require: nil
 gem 'rails-i18n'
 gem 'clockwork', require: nil
 gem 'sidekiq'
+gem 'thin'
+gem 'quiet_assets'
 
 gem 'sqlite3'
 
@@ -45,22 +47,12 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'rspec-rails',      '2.11.0'
-  gem 'annotate',         '~> 2.4.1.beta'
-  gem 'quiet_assets'
   gem 'factory_girl_rails'
-  gem 'database_cleaner'
-  #gem 'unicorn-rails'
   gem 'ffaker'
-
-  # Notification System
-  # Console
-  gem 'terminal-notifier', require: RUBY_PLATFORM.downcase.include?('darwin') && 'terminal-notifier'
-  # Guard
-  gem 'terminal-notifier-guard', require: RUBY_PLATFORM.downcase.include?('darwin') && 'terminal-notifier-guard'
 end
 
 group :development do
+  gem 'annotate'
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'better_errors'
@@ -75,9 +67,19 @@ group :development do
 
   gem 'rack-livereload'
 
+  # Notification System
+  # Console
+  gem 'terminal-notifier', require: RUBY_PLATFORM.downcase.include?('darwin') && 'terminal-notifier'
+  # Guard
+  gem 'terminal-notifier-guard', require: RUBY_PLATFORM.downcase.include?('darwin') && 'terminal-notifier-guard'
   # Listen to the changes of the file system
   gem 'rb-fsevent', require: false # For OSX
   gem 'rb-inotify', require: false # For Linux, 珍爱身边的linux用户
+end
+
+group :test do
+  gem 'rspec-rails',      '2.11.0'
+  gem 'database_cleaner', require: nil
 end
 
 # To use ActiveModel has_secure_password
