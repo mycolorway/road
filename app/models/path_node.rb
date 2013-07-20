@@ -15,5 +15,7 @@
 #
 
 class PathNode < GeoPoint
-  # attr_accessible :title, :body
+  before_validation do
+    self.creator = story.creator if creator.blank?
+  end
 end

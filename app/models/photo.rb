@@ -12,6 +12,5 @@
 
 class Photo < ActiveRecord::Base
   belongs_to :story
-  belongs_to :creator
-  attr_accessible :attachment
+  belongs_to :creator, class_name: 'User'
 end
