@@ -3,12 +3,11 @@
 <head>
 	<title>Road.lu</title>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="format-detection" content="telephone=no">
 
 	<link rel="apple-touch-icon-precomposed" href="<%= asset_path '' %>" />
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=40b0d2208f6ecf88ef7daff2a2621d23"></script>
 	<%= stylesheet_link_tag "m/application", :media => "all" %>
 	<%= javascript_include_tag "m/application" %>
 	<%= csrf_meta_tags %>
@@ -18,5 +17,6 @@
 		<%= yield %>
 	</div>
 	
+	<%= javascript_include_tag "http://api.map.baidu.com/api?v=1.5&ak=40b0d2208f6ecf88ef7daff2a2621d23" %>
 </body>
 </html>

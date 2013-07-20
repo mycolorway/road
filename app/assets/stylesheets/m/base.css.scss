@@ -1,3 +1,7 @@
+.wrapper {
+	overflow: hidden;
+}
+
 .ui-header {
 	background: #00626a;
 	height: 88px;
@@ -5,6 +9,26 @@
 
 	.ui-title {
 		margin-top: 18px;
+		font-size: 36px;
+		font-weight: normal;
+		color: #fff;
+	}
+
+	.btn-nav {
+		margin-top: -6px;
+		img {
+			width: 60px;
+			height: 60px;
+			margin-top: 7px;
+		}
+		i {
+			margin-top: 7px;
+			width: 60px;
+			height: 60px;
+			color: #A6CFCD;
+			font-size: 70px;
+			padding: 10px 20px;
+		}
 	}
 }
 
@@ -12,58 +36,6 @@
 	display: none;
 }
 
-.nav-bar {
-	.ui-corner-all {
-		padding: 15px;
-		margin: 0;
-		background: #c0dad4;
-
-		.ui-controlgroup-controls {
-			border-radius: 5px;
-			background: #00626a;
-			
-			.ui-btn {
-				background: #00626a;
-				padding: 0 8px;
-
-				.ui-btn-text {
-					color: #fff;
-					font-size: 20px;
-				}
-
-				&.ui-btn-active {
-					border-radius: 5px;
-					background: #5e9d9e;
-
-					.ui-btn-text {
-						color: #eee;
-					}
-				}
-			}
-		}
-	}
-
-	.ui-input-search {
-		background: #fff;
-		color: #999;
-		border-radius: 23px;
-		position: absolute;
-		top: 97px;
-		right: 15px;
-		width: 53%;
-
-		.ui-input-text {
-			font-size: 20px;
-		}
-
-		&:after {
-			font-family: FontAwesome;
-			font-weight: normal;
-			font-style: normal;
-			text-decoration: inherit;
-			-webkit-font-smoothing: antialiased;
-			content: "\f002";
-			font-size: 20px;
-		}
-	}
+a {
+	text-decoration: none;
 }
