@@ -13,4 +13,8 @@
 class Photo < ActiveRecord::Base
   belongs_to :story
   belongs_to :creator, class_name: 'User'
+
+  validates :story, :creator, presence: true
+
+  mount_uploader :attachment, AttachmentUploader
 end
