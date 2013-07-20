@@ -1,0 +1,99 @@
+<div class="pg-story">
+	<div class="bg">
+		<div class="center">
+			<div class="header">
+				<h1 class="logo">
+					<%= link_to "Road.路", root_path %>
+				</h1>
+				<h2 class="story-title"><%= @story.title %></h2>
+				<span>116</span>
+			</div>
+			<div class="content">
+				<div class="map-container" id="map-container"></div>
+				<div class="chart"></div>
+				<div class="info">
+					<table cellspacing="0">
+					    <thead>
+					        <tr>
+					            <td>里程</td>
+					            <td>总爬升</td>
+					            <td>总下降</td>
+								<td>难度系数<%= link_to "这是什么？", "" %></td>
+					        </tr>
+					    </thead>
+						<tbody>
+						    <tr>
+								<td><%= @story.total_distance_km %></td>
+								<td><%= @story.total_climbing_m %></td>
+								<td><%= @story.total_descending_m %></td>
+								<td><%= @story.difficulty_index %></td>
+						    </tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="images">
+		<ul>
+			<% @story.photos.each do |photo| %>
+				<li>
+					<a href="javascript:;">
+						<img src="<%= photo.attachment %>" />
+					</a>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+	<div class="intro">
+		<%= @story.content %>
+	</div>
+	<div class="main">
+	    <div class="comments"></div>
+		<div class="share">
+			<div class="export">
+				<h5>导出</h5>
+				<ul>
+				    <li>
+				        <a href="">导出GPX</a>
+				    </li>
+				    <li>
+				        <a href="">导出KML</a>
+				    </li>
+				</ul>
+			</div>
+			<div class="related-links">
+				<h6>相关链接</h6>
+				<ul>
+				    <li>
+				        <a href="">需找</a>
+				    </li>
+				    <li>
+				        <a href="">需找</a>
+				    </li>
+				    <li>
+				        <a href="">需找</a>
+				    </li>
+				    <li>
+				        <a href="">需找</a>
+				    </li>
+				</ul>
+			</div>
+			<div class="quote">
+				<h5>
+				    <ul>
+				        <li>
+				            <a href="">引用到论坛</a>
+				        </li>
+				        <li>
+				            <a href="">引用到论坛</a>
+				        </li>
+				    </ul>
+				</h5>
+			</div>
+			<div class="share-social">
+				<h5>分享</h5>
+			</div>
+		</div>
+	</div>
+</div>

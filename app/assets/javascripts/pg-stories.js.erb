@@ -10,13 +10,14 @@ $(function() {
 
 	})
 	.on('ajax:beforeSend', '.form-search', function(e, result) {
+
 		
 	})
 	.on('ajax:success', '.form-search', function(e, result) {
 		var storiesEl = [];
 
-		$.each(result.test, function() {
-			storiesEl.push(rd.template('tpl-search-result', {}));
+		$.each(result, function(idx, story) {
+			storiesEl.push($(rd.template('tpl-search-result', story)));
 		});
 
 		$('.search-results').empty().append(storiesEl);
@@ -28,7 +29,7 @@ function initMap () {
 	map.addEventListener('load', function() {
 		fetchStoriesByBounds();
 	});
-	map.centerAndZoom('成都', 15);
+	map.centerAndZoom('成都', 11);
 
 	mapNav = new BMap.NavigationControl({
 		anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
@@ -36,6 +37,7 @@ function initMap () {
 		type: BMAP_NAVIGATION_CONTROL_ZOOM
 	});
 	map.addControl(mapNav);
+	map.enableScrollWheelZoom();
 }
 
 function fetchStoriesByBounds() {
@@ -52,7 +54,7 @@ function fetchStoriesByBounds() {
 		type: 'get',
 		data: data,
 		success: function(result) {
-			$.each(result, function()
+			$.each(result, function(idx, story) {
 				renderPath(story);
 			});
 		}
@@ -61,21 +63,34 @@ function fetchStoriesByBounds() {
 
 
 function renderPath(story) {
+	console.log(story);
 	$.ajax({
 		url: story.path_nodes_url,
 		type: 'get',
 		success: function(result) {
-			debugger
-			var nodes = story.path_nodes,
+			var nodes = result,
 				polyline,
 				points = [];
 
 			$.each(nodes, function(idx, node) {
-				points.push(new BMap.Point(node));
+				points.push(new BMap.Point(node.longitude, node.latitude));
 			});
 
-			polyline = new BMap.Polyline(points);
+			polyline = new BMap.Polyline(points, rd.polylineBasicOpts);
 			map.addOverlay(polyline);
+
+			startMarker = new BMap.Marker(points[0]);
+			startMarker.addEventListener('click', function(e, target) {
+				var storyInfo = rd.template('tpl-story-info', story);
+					infoWin = new BMap.InfoWindow(storyInfo, {
+						width: 240,
+						height: 140,
+						enableMessage: false,
+						title: story.title
+					});
+				this.openInfoWindow(infoWin);
+			});
+			map.addOverlay(startMarker);
 		}
 	});
 }

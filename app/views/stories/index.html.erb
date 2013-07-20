@@ -7,8 +7,8 @@
 				</h1>
 			</div>
 			<div class="search">
-				<form action="" class="form form-search" method="post">
-					<input type="text" name="keyword" class="keyword"  value="" />
+				<form action="<%= by_keyword_stories_path format: :json %>" class="form form-search" method="get" data-remote>
+					<input type="text" name="q" class="keyword"  />
 					<button type="submit" class="btn btn-primary btn-search">搜索</button>
 				</form>
 			</div>
@@ -29,12 +29,22 @@
 <script type="text/html" id="tpl-search-result">
 	<li>
 		<div class="thumb">
-			<img src="{{ thumb_url }}" alt="" />
+			<img src="{{ static_map_url }}" alt="{{ title }}" />
 		</div>
 		<div class="info">
 			<h5 class="title">{{ title }}</h5>
-			<p></p>
+			<p>
+				<span>距离: {{ total_distance_km }}</span>
+				<span>爬升: {{ total_climbing_m }}</span>
+				<span>下降: {{ total_descending_m }}</span>
+			</p>
 		</div>
 	</li>
 </script>
-<input type="hidden" id="by-bounds-url" value="<%= by_bounds_stories_path %>" />
+<script type="text/html" id="tpl-story-info">
+	<p>距离: {{ total_distance_km }}</p>
+	<p>爬升: {{ total_climbing_m }}</p>
+	<p>下降: {{ total_descending_m }}</p>
+	<a href="{{ show_url }}">查看详细</a>
+</script>
+<input type="hidden" id="by-bounds-url" value="<%= by_bounds_stories_path format: :json %>" />
