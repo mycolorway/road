@@ -38,3 +38,15 @@ unless Story.exists?
     end
   end
 end
+
+if Story.where(id: 2).exists?
+  story = Story.find 2
+  user = User.first!
+
+  sample_dir = Rails.root.join('db')
+  sample_dir.entries.each do |file|
+    next unless '.jpg' == file.extname
+
+    story.photos.create! attachment: sample_dir.join(file).open, creator: user
+  end
+end

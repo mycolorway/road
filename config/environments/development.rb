@@ -36,4 +36,6 @@ Road::Application.configure do
   config.assets.debug = true
 
   config.action_mailer.default_url_options = { host: 'road.dev' }
+
+  config.log_level = :warn
 end
