@@ -7,10 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 unless User.exists?
-  FactoryGirl.create :user,
-    email: 'snow@mycolorway.com',
-    password: '123123123',
-    password_confirmation: '123123123'
+  FactoryGirl.create :user, email: 'snow@mycolorway.com'
 end
 
 unless Story.exists?
