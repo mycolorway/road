@@ -1,0 +1,69 @@
+.ui-header {
+	background: #00626a;
+	height: 88px;
+	border: 1px solid #333333;
+
+	.ui-title {
+		margin-top: 18px;
+	}
+}
+
+.ui-checkbox input, .ui-radio input {
+	display: none;
+}
+
+.nav-bar {
+	.ui-corner-all {
+		padding: 15px;
+		margin: 0;
+		background: #c0dad4;
+
+		.ui-controlgroup-controls {
+			border-radius: 5px;
+			background: #00626a;
+			
+			.ui-btn {
+				background: #00626a;
+				padding: 0 8px;
+
+				.ui-btn-text {
+					color: #fff;
+					font-size: 20px;
+				}
+
+				&.ui-btn-active {
+					border-radius: 5px;
+					background: #5e9d9e;
+
+					.ui-btn-text {
+						color: #eee;
+					}
+				}
+			}
+		}
+	}
+
+	.ui-input-search {
+		background: #fff;
+		color: #999;
+		border-radius: 23px;
+		position: absolute;
+		top: 97px;
+		right: 15px;
+		width: 53%;
+
+		.ui-input-text {
+			font-size: 20px;
+		}
+
+		&:after {
+			font-family: FontAwesome;
+			font-weight: normal;
+			font-style: normal;
+			text-decoration: inherit;
+			-webkit-font-smoothing: antialiased;
+			content: "\f002";
+			font-size: 20px;
+		}
+	}
+}
