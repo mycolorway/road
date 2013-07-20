@@ -30,7 +30,8 @@ class PhotosController < ApplicationController
   # POST /photos
   # POST /photos.json
   def create
-    @photo = Photo.new(params[:photo])
+    @story = Story.find params[:story_id]
+    @photo = Photo.new(params[:photo].merge story: @story, creator: current_user)
 
     respond_to do |format|
       if @photo.save
