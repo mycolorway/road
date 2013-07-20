@@ -1,0 +1,83 @@
+(function($) {
+
+var pg = '.pg-story-edit';
+var map;
+var markerTool;
+
+$(function() {
+	initMap();
+	// renderBg();
+
+	// $(document)
+	$(document).on('click', '.btn-open-marker', function(){
+		markerTool.open();
+	});
+});
+
+function renderBg() {
+	var bgEl = $('.bg'),
+		url = bgEl.data('url');
+
+	rd.loadImage(url, function(img) {
+		bgEl.css({
+            'background-image': 'url(' + img.src + ')'
+        });
+
+        setTimeout(function() {
+            bgEl.css('opacity', 1);
+        }, 1000);
+	});
+}
+
+function initMap () {
+	map = new BMap.Map('map-container', rd.mapBasicOpts);
+	map.addEventListener('load', function() {
+		renderPath();
+	})
+	map.addEventListener('click', function(e, target) {
+		console.log(e);
+		console.log(target);
+	});
+	map.centerAndZoom('成都', 11);
+
+	mapNav = new BMap.NavigationControl({
+		anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+		showZoomInfo: false,
+		type: BMAP_NAVIGATION_CONTROL_ZOOM
+	});
+	map.addControl(mapNav);
+	map.enableScrollWheelZoom();
+
+	markerTool = new BMapLib.MarkerTool(map);
+}
+
+function renderPath() {
+	var points = [],
+		point;
+
+	$.each(storyNodes, function(idx, node) {
+		point = new BMap.Point(node.longitude, node.latitude);
+		points.push(point);
+	});
+
+	polyline = new BMap.Polyline(points, rd.polylineBasicOpts);
+	map.addOverlay(polyline);
+	map.setViewport(points);
+
+	return
+
+	// startMarker = new BMap.Marker(points[0]);
+	// startMarker.addEventListener('click', function(e, target) {
+	// 	var storyInfo = rd.template('tpl-story-info', story);
+	// 		infoWin = new BMap.InfoWindow(storyInfo, {
+	// 			width: 240,
+	// 			height: 140,
+	// 			enableMessage: false,
+	// 			title: story.title
+	// 		});
+	// 	this.openInfoWindow(infoWin);
+	// });
+	// map.addOverlay(startMarker);
+}
+
+})(jQuery);
