@@ -44,6 +44,23 @@ class Story < ActiveRecord::Base
   # ------
 
   def self.by_bounds(lat_n, lng_e=nil, lat_s=nil, lng_w=nil)
+    resp = JSON.parse RestClient.get 'http://api.map.baidu.com/geosearch/poi',
+      params: {
+        bounds: "#{lat_s},#{lng_w};#{lat_n},#{lng_e}",
+        filter: "databox:#{Yetting.baidu_lbs_databox_id}",
+        ak: Yetting.baidu_ak
+      }
+
+    if 0 == resp['status']
+      baidu_ids = resp['content'].map{ |p| p['uid'] }
+      where id: PathNode.where(baidu_id: baidu_ids).pluck(:story_id).uniq
+    else
+      raise resp['message']
+    end
+  rescue => err
+    Rails.logger.warn 'Failed in http://api.map.baidu.com/geosearch/poi:' \
+      "#{err.inspect}"
+
     if lat_n.is_a? Hash
       lng_e = lat_n[:lng_e]
       lat_s = lat_n[:lat_s]
@@ -164,5 +181,8 @@ class Story < ActiveRecord::Base
     else
       0
     end
+  end
+
+  def self.create_by_gps
   end
 end
