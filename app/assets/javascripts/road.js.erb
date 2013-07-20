@@ -5,17 +5,32 @@ window.rd = {
 
 	},
 
+	polylineBasicOpts: {
+		strokeColor: 'red',
+		strokeWeight: 6,
+		strokeOpacity: 0.7,
+		enableClicking: false
+	},
+
 	template: function( id, data ) {
 		var template = $.trim( $( "#" + id ).html());
 
 		if ( data ) {
 			$.each( data, function( key, value ) {
 				var re =  new RegExp( "\\{\\{ " + key + " \\}\\}", "g" );
-				template = template.replace( re, mcw.encodeHtml( value ));
+				template = template.replace( re, rd.encodeHtml( value ));
 			});
 		}
 
-		return $( template );
+		return template;
+	},
+
+	encodeHtml: function( value ) {
+		return ( value + "" ).replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
 	}
 }
 
