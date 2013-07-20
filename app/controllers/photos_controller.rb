@@ -7,14 +7,9 @@ class PhotosController < ApplicationController
 
   # GET /photos/1
   # GET /photos/1.json
-  #def show
-    #@photo = Photo.find(params[:id])
-
-    #respond_to do |format|
-      #format.html # show.html.erb
-      #format.json { render json: @photo }
-    #end
-  #end
+  def show
+    @photo = Photo.find(params[:id])
+  end
 
   # GET /photos/new
   # GET /photos/new.json
@@ -34,19 +29,19 @@ class PhotosController < ApplicationController
 
   # POST /photos
   # POST /photos.json
-  #def create
-    #@photo = Photo.new(params[:photo])
+  def create
+    @photo = Photo.new(params[:photo])
 
-    #respond_to do |format|
-      #if @photo.save
-        #format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
-        #format.json { render json: @photo, status: :created, location: @photo }
-      #else
-        #format.html { render action: "new" }
-        #format.json { render json: @photo.errors, status: :unprocessable_entity }
-      #end
-    #end
-  #end
+    respond_to do |format|
+      if @photo.save
+        format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
+        format.json { render json: @photo, status: :created, location: @photo }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @photo.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # PUT /photos/1
   # PUT /photos/1.json
