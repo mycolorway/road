@@ -1,0 +1,22 @@
+(function($) {
+
+window.rd = {
+	mapBasicOpts: {
+
+	},
+
+	template: function( id, data ) {
+		var template = $.trim( $( "#" + id ).html());
+
+		if ( data ) {
+			$.each( data, function( key, value ) {
+				var re =  new RegExp( "\\{\\{ " + key + " \\}\\}", "g" );
+				template = template.replace( re, mcw.encodeHtml( value ));
+			});
+		}
+
+		return $( template );
+	}
+}
+
+})(jQuery);

@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Road</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -10,5 +11,6 @@
 
 <%= yield %>
 
+<%= javascript_include_tag "http://api.map.baidu.com/api?v=1.5&ak=40b0d2208f6ecf88ef7daff2a2621d23" %>
 </body>
 </html>

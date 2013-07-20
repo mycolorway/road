@@ -43,7 +43,7 @@ class Story < ActiveRecord::Base
 
   def self.by_keyword(q)
     q = "%#{q}%"
-    where('title like ? or description like ?', q ,q)
+    where('title like ? or content like ?', q ,q)
   end
 
   # ----------

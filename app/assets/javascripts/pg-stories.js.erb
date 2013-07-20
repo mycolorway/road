@@ -1,0 +1,83 @@
+(function($) {
+
+var map;
+
+$(function() {
+	initMap();
+
+	$(document)
+	.on('click', '.search-results li', function(e) {
+
+	})
+	.on('ajax:beforeSend', '.form-search', function(e, result) {
+		
+	})
+	.on('ajax:success', '.form-search', function(e, result) {
+		var storiesEl = [];
+
+		$.each(result.test, function() {
+			storiesEl.push(rd.template('tpl-search-result', {}));
+		});
+
+		$('.search-results').empty().append(storiesEl);
+	});
+});
+
+function initMap () {
+	map = new BMap.Map('map-container', rd.mapBasicOpts);
+	map.addEventListener('load', function() {
+		fetchStoriesByBounds();
+	});
+	map.centerAndZoom('成都', 15);
+
+	mapNav = new BMap.NavigationControl({
+		anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+		showZoomInfo: false,
+		type: BMAP_NAVIGATION_CONTROL_ZOOM
+	});
+	map.addControl(mapNav);
+}
+
+function fetchStoriesByBounds() {
+	var bounds = map.getBounds(),
+		data = {
+			lat_n: bounds.vc,
+			lng_e: bounds.wc,
+			lat_s: bounds.yc,
+			lng_w: bounds.zc
+		}
+
+	$.ajax({
+		url: $('#by-bounds-url').val(),
+		type: 'get',
+		data: data,
+		success: function(result) {
+			$.each(result, function()
+				renderPath(story);
+			});
+		}
+	});
+}
+
+
+function renderPath(story) {
+	$.ajax({
+		url: story.path_nodes_url,
+		type: 'get',
+		success: function(result) {
+			debugger
+			var nodes = story.path_nodes,
+				polyline,
+				points = [];
+
+			$.each(nodes, function(idx, node) {
+				points.push(new BMap.Point(node));
+			});
+
+			polyline = new BMap.Polyline(points);
+			map.addOverlay(polyline);
+		}
+	});
+}
+
+})(jQuery);

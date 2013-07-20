@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require road
+//= require pg-stories
 //= require_tree .
