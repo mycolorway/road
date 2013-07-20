@@ -4,13 +4,17 @@ class StoriesController < ApplicationController
   # GET /stories
   # GET /stories.json
   def index
-    @stories = Story.all
+    @stories = Story.unscoped
+
+    scope_records
   end
 
   def by_bounds
     require_params :lat_n, :lng_e, :lat_s, :lng_w
 
-    @stories = Story.by_bounds(params).page params[:page]
+    @stories = Story.by_bounds(params)
+
+    scope_records
 
     render :index
   end
@@ -18,13 +22,17 @@ class StoriesController < ApplicationController
   def by_keyword
     require_params :q
 
-    @stories = Story.by_keyword(params[:q]).page params[:page]
+    @stories = Story.by_keyword(params[:q])
+
+    scope_records
 
     render :index
   end
 
   def by_user
     @stories = User.find(params[:user_id]).stories
+
+    scope_records
 
     render :index
   end
@@ -99,4 +107,13 @@ class StoriesController < ApplicationController
       #format.json { head :no_content }
     #end
   #end
+
+  def scope_records
+    if params.key? :subtype
+      @stories = @stories.where(subtype: params[:subtype])
+    end
+
+    @stories.page params[:page]
+  end
+  protected :scope_records
 end
