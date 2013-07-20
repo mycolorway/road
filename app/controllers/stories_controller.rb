@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_filter :authenticate_user!, only: :by_user
+  before_filter :authenticate_user!, only: [:by_user, :create, :update]
 
   # GET /stories
   # GET /stories.json
@@ -74,19 +74,19 @@ class StoriesController < ApplicationController
 
   # PUT /stories/1
   # PUT /stories/1.json
-  #def update
-    #@story = Story.find(params[:id])
+  def update
+    @story = Story.find(params[:id])
 
-    #respond_to do |format|
-      #if @story.update_attributes(params[:story])
-        #format.html { redirect_to @story, notice: 'Story was successfully updated.' }
-        #format.json { head :no_content }
-      #else
+    respond_to do |format|
+      if @story.update_attributes(params[:story])
+        format.html { redirect_to @story, notice: 'Story was successfully updated.' }
+        format.json { head :no_content }
+      else
         #format.html { render action: "edit" }
-        #format.json { render json: @story.errors, status: :unprocessable_entity }
-      #end
-    #end
-  #end
+        format.json { render json: @story.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /stories/1
   # DELETE /stories/1.json
