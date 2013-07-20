@@ -12,7 +12,7 @@
 					<button type="submit" class="btn btn-primary btn-search">搜索</button>
 				</form>
 			</div>
-			<a href="http://creativecommons.org/licenses/by-sa/3.0/deed.zh" class="cc">CC-BY-SA</a>
+			<a href="http://creativecommons.org/licenses/by-sa/3.0/deed.zh" target="_blank" class="cc">CC-BY-SA</a>
 		</div>
 		<div class="search-results"></div>
     </div>
@@ -33,7 +33,7 @@
 		</div>
 		<div class="info">
 			<h5 class="title">{{ title }}</h5>
-			<p>
+			<p class="desc">
 				<span>距离: {{ total_distance_km }}</span>
 				<span>爬升: {{ total_climbing_m }}</span>
 				<span>下降: {{ total_descending_m }}</span>
@@ -47,6 +47,7 @@
 	<p>下降: {{ total_descending_m }}</p>
 	<a href="{{ show_url }}">查看详细</a>
 </script>
+
 <% content_for :scripts do %>
 	<%= javascript_include_tag "pg-stories" %>
 <% end %>

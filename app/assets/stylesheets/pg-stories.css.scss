@@ -59,21 +59,47 @@ html, body {
 
 	.search-results {
 		background-color: #fff;
+		-webkit-transition: height 200 ease-in-out;
+		-moz-transition: height 200 ease-in-out;
+		transition: height 200 ease-in-out;
+		@include border-radius(0, 0, 4px, 4px);
+
+
+		.loading {
+			height: 50px;
+			background: image-url("loading.gif") center center no-repeat;
+		}
 
 		li {
-			padding: 0 15px;
+			@include clearfix;
+			cursor: pointer;
+			padding: 12px;
+			list-style: none;
+
+			&:hover {
+				background-color: #f9f9f9;
+			}
 		}
 
 		.thumb {
 			float: left;
+
+			img {
+				display: block;
+				width: 60px;
+				height: 60px;
+			}
 		}
 
 		.title {
-
+			margin-left: 84px;
+			margin-bottom: 3px;
+			color: #00626a;
+			font-size: 20px;
 		}
 
 		.desc {
-
+			margin-left: 84px;
 		}
 	}
 

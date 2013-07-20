@@ -55,9 +55,9 @@ class StoriesController < ApplicationController
   #end
 
   # GET /stories/1/edit
-  #def edit
-    #@story = Story.find(params[:id])
-  #end
+  def edit
+    @story = Story.find(params[:id])
+  end
 
   # POST /stories
   # POST /stories.json

@@ -1,4 +1,5 @@
-.pg-story {
+.pg-story,
+.pg-story-edit {
 	.bg {
 		width: 100%;
 		height: 850px;
@@ -139,4 +140,8 @@
 			@include radius();
 		}
 	}
+}
+
+.pg-story-edit {
+
 }
