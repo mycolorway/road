@@ -1,0 +1,38 @@
+(function($) {
+
+var map;
+
+$(function() {
+	initMap();
+
+	$(document)
+	.on('click', '.search-results li', function(e) {
+
+	})
+	.on('ajax:beforeSend', '.form-search', function(e, result) {
+		
+	})
+	.on('ajax:success', '.form-search', function(e, result) {
+		var storiesEl = [];
+
+		$.each(result.test, function() {
+			storiesEl.push(rd.template('tpl-search-result', {}));
+		});
+
+		$('.search-results').empty().append(storiesEl);
+	});
+});
+
+function initMap () {
+	map = new BMap.Map('map-container', rd.mapBasicOpts);
+	map.centerAndZoom('成都', 15);
+
+	mapNav = new BMap.NavigationControl({
+		anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+		showZoomInfo: false,
+		type: BMAP_NAVIGATION_CONTROL_ZOOM
+	});
+	map.addControl(mapNav);
+}
+
+})(jQuery);

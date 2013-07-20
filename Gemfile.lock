@@ -115,9 +115,6 @@ GEM
       multi_json (~> 1.7)
     guard-rails (0.4.7)
       guard (>= 0.2.2)
-    guard-rspec (2.5.4)
-      guard (>= 1.1)
-      rspec (~> 2.11)
     highline (1.6.19)
     hike (1.2.3)
     http_parser.rb (0.5.3)
@@ -296,7 +293,6 @@ DEPENDENCIES
   guard-bundler
   guard-livereload
   guard-rails
-  guard-rspec
   jbuilder
   jquery-rails
   kaminari

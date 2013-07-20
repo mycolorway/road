@@ -1,0 +1,125 @@
+.btn {
+	display:inline-block;
+	padding:6px 10px;
+	margin:0 10px 0 0;
+	border: 1px solid transparent;
+	color:#fff;
+	background-color: #a6bbb6;
+	@include radius(5px);
+	font-size:14px;
+	cursor:pointer;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+
+	&:hover {
+		background:#aac5bf;
+		color: #fff;
+	}
+
+	&:focus {
+		@include box-shadow(0,0,6px,rgba(121, 176, 237, .6));
+	}
+
+	&:active {
+		background:#afd3ca;
+	}
+
+	&.disabled,
+	&[disabled] {
+		background:#ccc;
+		color:#eee;
+		cursor: default;
+	}
+
+	&.success {
+		background: #efefef;
+		color: #fff;
+		cursor: default;
+	}
+
+	&.btn-mini {
+		padding: 5px 10px;
+		color: #000000;
+		line-height: normal;
+		background: #ffffff;
+		border: 1px solid #cccccc;
+		@include radius(4px);
+		@include box-shadow(1px, 1px, 1px, rgba(0,0,0,0.1));
+		&:hover {
+			background: #f3f3f3;
+			color: #000000;
+		}
+
+		&:active {
+			@include box-shadow(0, 0, 0, rgba(0,0,0,0));
+			position: relative;
+			top: 1px;
+		}
+
+		&.disabled,
+		&[disabled] {
+			background-color: #ddd;
+			color: #999;
+			@include box-shadow(0,0,0,#000);
+			top: 0;
+		}
+	}
+
+	&.btn-large {
+		padding:8px 28px;
+		font-size:16px;
+	}
+
+	&.btn-primary {
+		color:#fff;
+		background:#a5d856;
+
+		&:hover {
+			background:#9fc25b;
+		}
+
+		&:active {
+			background:#b6d971;
+		}
+
+		&.disabled,
+		&[disabled] {
+			background:#ccc;
+			color:#f3f3f3;
+			cursor: default;
+		}
+
+		&.success {
+			background: #efefef;
+			color: #fff;
+			cursor: default;
+		}
+	}
+
+	&.btn-x {
+		background:transparent;
+		font-size:12px;
+		color:#888;
+
+		&:hover {
+			color:#06a;
+		}
+
+		&:active {
+			color:#27c;
+		}
+
+		&.disabled,
+		&[disabled] {
+			color:#ddd;
+			cursor: default;
+		}
+
+		&:focus {
+			@include box-shadow(0,0,0,rgba(0,0,0,0));
+		}
+	}
+
+}
+

@@ -15,6 +15,6 @@ Road::Application.routes.draw do
   # ----
   # misc
   # ----
-  root to: 'misc#index'
+  root to: 'stories#index'
 
 end

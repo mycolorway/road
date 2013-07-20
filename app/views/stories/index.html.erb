@@ -1,0 +1,39 @@
+<div class="pg-stories">
+    <div class="header">
+		<div class="header-main">
+			<div class="logo">
+				<h1>
+					<%= link_to "Road.路", root_path %>
+				</h1>
+			</div>
+			<div class="search">
+				<form action="" class="form form-search" method="post">
+					<input type="text" name="keyword" class="keyword"  value="" />
+					<button type="submit" class="btn btn-primary btn-search">搜索</button>
+				</form>
+			</div>
+			<a href="http://creativecommons.org/licenses/by-sa/3.0/deed.zh" class="cc">CC-BY-SA</a>
+		</div>
+		<div class="search-results"></div>
+    </div>
+	<div class="new-story-wrap">
+		<a href="" class="link-new-story">添加新路线</a>
+		<h5 class="title">添加路线</h5>
+		<p class="desc">通过上传或同步其他网站<br />的轨迹来添加新路线</p>
+	</div>
+	<div class="map-container" id="map-container" unselectable="on">
+		<div class="loading">正在加载百度地图</div>
+	</div>
+</div>
+
+<script type="text/html" id="tpl-search-result">
+	<li>
+		<div class="thumb">
+			<img src="{{ thumb_url }}" alt="" />
+		</div>
+		<div class="info">
+			<h5 class="title">{{ title }}</h5>
+			<p></p>
+		</div>
+	</li>
+</script>
