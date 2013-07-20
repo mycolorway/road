@@ -1,46 +1,39 @@
 class PoisController < ApplicationController
+  before_filter :authenticate_user!, only: [:create, :update]
+
   # GET /pois
   # GET /pois.json
   def index
     @pois = Poi.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @pois }
-    end
   end
 
   # GET /pois/1
   # GET /pois/1.json
   def show
     @poi = Poi.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @poi }
-    end
   end
 
   # GET /pois/new
   # GET /pois/new.json
-  def new
-    @poi = Poi.new
+  #def new
+    #@poi = Poi.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @poi }
-    end
-  end
+    #respond_to do |format|
+      #format.html # new.html.erb
+      #format.json { render json: @poi }
+    #end
+  #end
 
   # GET /pois/1/edit
-  def edit
-    @poi = Poi.find(params[:id])
-  end
+  #def edit
+    #@poi = Poi.find(params[:id])
+  #end
 
   # POST /pois
   # POST /pois.json
   def create
-    @poi = Poi.new(params[:poi])
+    @story = Story.find(params[:story_id])
+    @poi = Poi.new(params[:poi].merge story: @story, creator: current_user)
 
     respond_to do |format|
       if @poi.save
@@ -71,13 +64,13 @@ class PoisController < ApplicationController
 
   # DELETE /pois/1
   # DELETE /pois/1.json
-  def destroy
-    @poi = Poi.find(params[:id])
-    @poi.destroy
+  #def destroy
+    #@poi = Poi.find(params[:id])
+    #@poi.destroy
 
-    respond_to do |format|
-      format.html { redirect_to pois_url }
-      format.json { head :no_content }
-    end
-  end
+    #respond_to do |format|
+      #format.html { redirect_to pois_url }
+      #format.json { head :no_content }
+    #end
+  #end
 end

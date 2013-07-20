@@ -11,18 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130720062919) do
+ActiveRecord::Schema.define(:version => 20130720135730) do
 
   create_table "geo_points", :force => true do |t|
-    t.string   "sti_type",              :null => false
-    t.decimal  "latitude",              :null => false
-    t.decimal  "longitude",             :null => false
-    t.decimal  "elevation",             :null => false
-    t.datetime "attributes_updated_at", :null => false
-    t.integer  "story_id",              :null => false
+    t.string   "sti_type",                             :null => false
+    t.decimal  "latitude",                             :null => false
+    t.decimal  "longitude",                            :null => false
+    t.decimal  "elevation",                            :null => false
+    t.datetime "attributes_updated_at",                :null => false
+    t.integer  "story_id",                             :null => false
     t.integer  "creator_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "subtype",               :default => 0, :null => false
+    t.text     "description"
   end
 
   add_index "geo_points", ["creator_id"], :name => "index_geo_points_on_creator_id"
