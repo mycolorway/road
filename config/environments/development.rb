@@ -38,4 +38,7 @@ Road::Application.configure do
   config.action_mailer.default_url_options = { host: 'road.dev' }
 
   config.log_level = :warn
+
+  # rack-livereload
+  config.middleware.insert_after ActionDispatch::Static, Rack::LiveReload
 end

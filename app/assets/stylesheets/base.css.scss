@@ -1,0 +1,88 @@
+////////////////- Mixins
+@mixin text-shadow($x:0, $y:1px, $depth:0px, $color:rgba(255,255,255,1)) {
+  -webkit-text-shadow: $x $y $depth $color;
+  -moz-text-shadow: $x $y $depth $color;
+  text-shadow: $x $y $depth $color;
+}
+
+@mixin box-shadow ($x:1px, $y:2px, $depth:8px, $color:rgba(80,50,0,0.2)) {
+  -webkit-box-shadow: $x $y $depth $color;
+  -moz-box-shadow: $x $y $depth $color;
+  box-shadow: $x $y $depth $color;
+}
+
+@mixin box-shadow-inset ($x:1px, $y:2px, $depth:8px, $color:rgba(80,50,0,0.2)) {
+  -webkit-box-shadow: inset $x $y $depth $color;
+  -moz-box-shadow: inset $x $y $depth $color;
+  box-shadow: inset $x $y $depth $color;
+}
+
+@mixin background-image ($x,$y) {
+  background-image: -webkit-linear-gradient(top, $x, $y);
+  background-image:    -moz-linear-gradient(top, $x, $y);
+  background-image:         linear-gradient(to bottom, $x, $y);
+}
+
+@mixin radius ($x:4px) {
+  -moz-border-radius: $x;
+  -webkit-border-radius: $x;
+  border-radius: $x;
+}
+
+@mixin border-radius($x, $y, $m, $n) {
+  -moz-border-radius: $x $y $m $n;
+  -webkit-border-radius: $x $y $m $n;
+  border-radius: $x $y $m $n;
+}
+
+@mixin transition ($x, $y:all) {
+    -webkit-transition: $y $x ease-in-out;
+       -moz-transition: $y $x ease-in-out;
+            transition: $y $x ease-in-out;
+}
+
+@mixin transform-transition ($x) {
+    -webkit-transition: -webkit-transform $x ease-in-out;
+       -moz-transition: -moz-transform $x ease-in-out;
+            transition: transform $x ease-in-out;
+}
+
+@mixin scale($percent) {
+	-webkit-transform: scale($percent);
+	-moz-transform: scale($percent);
+	transform: scale($percent);
+}
+
+@mixin delay($x:0.2s) {
+	transition-delay: $x;
+	-moz-transition-delay: $x;
+	-webkit-transition-delay: $x;
+	-o-transition-delay: $x;
+}
+
+@mixin background-gradient($to, $from) {
+	background-color: $to;
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to));
+	background: -webkit-linear-gradient(top, $to, $from);
+	background: -moz-linear-gradient(top, $to, $from);
+	background: -ms-linear-gradient(top, $to, $from);
+	background: -o-linear-gradient(top, $to, $from);
+	background: linear-gradient(top, $to, $from);
+}
+
+@mixin clearfix {
+  *zoom: 1;
+  &:before, &:after {
+    display:table;
+    content:"";
+  }
+  &:after {
+    clear: both;
+    height: 0;
+    visibility: hidden;
+  }
+}
+
+html, textarea {
+	font-family:helvetica,Arial;
+}

@@ -1,4 +1,5 @@
-#source 'https://rubygems.org'
+#
+#ource 'https://rubygems.org'
 source 'http://ruby.taobao.org'
 
 gem 'rails', '3.2.13'
@@ -62,10 +63,9 @@ group :development do
 
   # Guard
   gem 'guard-bundler'
-  gem 'guard-rspec'
+  # gem 'guard-rspec'
   gem 'guard-rails'
   gem 'guard-livereload'
-
   gem 'rack-livereload'
 
   # Notification System
