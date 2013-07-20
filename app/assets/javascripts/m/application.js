@@ -3,3 +3,4 @@
 //= require jquery_ujs
 //= require road
 //= require m/stories
+//= require m/users

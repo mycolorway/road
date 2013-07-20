@@ -5,7 +5,4 @@ class M::UsersController < ApplicationController
     
   end
   
-  def show
-    # @story = Story.find(params[:id])
-  end
 end

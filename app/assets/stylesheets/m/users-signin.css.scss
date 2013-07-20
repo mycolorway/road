@@ -1,19 +1,90 @@
 #page-signin {
 	overflow: hidden;
 
-	.container {
+	.container.page-signin {
 		background-image: url('/assets/m/app_signin_bg.png');
 		position: absolute;
 		height: 91%;
 		width: 100%;
 
-		.sigin-blah {
-			margin: 0 auto;
-			width: 210px;
+		.signin-blah {
+			margin-top: 120px;
+
+			.signin-desc {
+				margin: 0 auto 24px;
+				width: 290px;
+				color: #ddd;
+				font-size: 26px;
+			}
 
 			.signin-list {
 				list-style-type: none;
+				padding-left: 0;
+
+				li {
+					padding: 10px 48px;
+					border-bottom: 2px solid #eee;
+					width: 210px;
+					margin: 0 auto;
+					background: #fff;
+
+					&:last-child {
+						border-bottom: none;
+					}
+
+					&:active {
+						opacity: 0.8;
+					}
+				}
 			}
 		}
+	}
+}
+
+.page-signin-show {
+	display: none;
+
+	p {
+		padding: 18px 30px;
+		margin: 15px;
+		background: #eee;
+		font-size: 36px;
+		color: #00626A;
+		border-radius: 6px;
+
+		&:first-child {
+			margin-bottom: 60px;
+		}
+
+		&:last-child {
+			background: none;
+			text-align: center;
+			margin: 0;
+			padding: 0;
+		}
+
+		&.exist {
+			margin-top: 380px;
+			text-align: center;
+		}
+
+		i {
+			font-size: 26px;
+
+			&.icon-angle-right {
+				float: right;
+				color: #aaa;
+				font-size: 36px;
+			}
+		}
+	}
+
+	.feedback {
+		text-align: center;
+		font-size: 26px;
+		color: #5e9d9e;
+		padding: 18px 30px;
+		margin: 15px;
+		width: 100%;
 	}
 }
