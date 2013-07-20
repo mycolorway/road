@@ -3,11 +3,18 @@ class StoriesController < ApplicationController
   # GET /stories.json
   def index
     @stories = Story.all
+  end
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @stories }
-    end
+  def by_bounds
+    require_params :lat_n, :lng_e, :lat_s, :lng_w
+
+    @stories = Story.by_bounds(params).page params[:page]
+  end
+
+  def by_keyword
+    require_params :q
+
+    @stories = Story.by_keyword(params[:q]).page params[:page]
   end
 
   # GET /stories/1

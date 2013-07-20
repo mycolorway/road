@@ -45,4 +45,42 @@ class Story < ActiveRecord::Base
     q = "%#{q}%"
     where('title like ? or description like ?', q ,q)
   end
+
+  # ----------
+  # attributes
+  # ----------
+
+  def static_map_url_baidu(width=100, height=100)
+    center_lat = (path_nodes.map(&:latitude).inject{ |sum, ele| sum + ele } / path_nodes.length).round(6)
+    center_lng = (path_nodes.map(&:longitude).inject{ |sum, ele| sum + ele } / path_nodes.length).round(6)
+
+    points_query = path_nodes.map{ |node| "#{node.longitude.round(6)},#{node.latitude.round(6)}"}.join(';')
+
+    'http://api.map.baidu.com/staticimage?'\
+      "center=#{center_lng},#{center_lat}&width=#{width}&height=#{height}&"\
+      "paths=#{points_query}&pathStyles=0xff0000,1,1"
+  end
+
+  # km
+  def total_distance_km
+    # TODO
+    100
+  end
+
+  # m
+  def total_climbing_m
+    # TODO
+    100
+  end
+
+  # m
+  def total_descending_m
+    # TODO
+    100
+  end
+
+  def difficulty_index
+    # TODO
+    10
+  end
 end
