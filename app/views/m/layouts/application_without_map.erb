@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Road.lu</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.5">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="apple-touch-icon-precomposed" href="<%= asset_path '' %>" />
+	<%= stylesheet_link_tag "m/application", :media => "all" %>
+	<%= javascript_include_tag "m/application" %>
+	<%= csrf_meta_tags %>
+</head>
+<body>
+	<div class="wrapper">
+		<%= yield %>
+	</div>
+	
+</body>
+</html>

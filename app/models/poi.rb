@@ -12,7 +12,13 @@
 #  creator_id            :integer
 #  created_at            :datetime        not null
 #  updated_at            :datetime        not null
+#  subtype               :integer         default(0), not null
+#  description           :text
+#  title                 :string(255)     default(""), not null
 #
 
 class Poi < GeoPoint
+  SUBTYPE_PATH_NODE = 0
+
+  validates :subtype, numericality: { only_integer: true, greater_than: 0 }
 end

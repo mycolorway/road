@@ -1,14 +1,20 @@
 class StoriesController < ApplicationController
+  before_filter :authenticate_user!, only: [:by_user, :create, :update]
+
   # GET /stories
   # GET /stories.json
   def index
-    @stories = Story.all
+    @stories = Story.unscoped
+
+    scope_records
   end
 
   def by_bounds
     require_params :lat_n, :lng_e, :lat_s, :lng_w
 
-    @stories = Story.by_bounds(params).page params[:page]
+    @stories = Story.by_bounds(params)
+
+    scope_records
 
     render :index
   end
@@ -16,7 +22,17 @@ class StoriesController < ApplicationController
   def by_keyword
     require_params :q
 
-    @stories = Story.by_keyword(params[:q]).page params[:page]
+    @stories = Story.by_keyword(params[:q])
+
+    scope_records
+
+    render :index
+  end
+
+  def by_user
+    @stories = User.find(params[:user_id]).stories
+
+    scope_records
 
     render :index
   end
@@ -39,41 +55,46 @@ class StoriesController < ApplicationController
   #end
 
   # GET /stories/1/edit
-  #def edit
-    #@story = Story.find(params[:id])
-  #end
+  def edit
+    @story = Story.find(params[:id])
+  end
 
   # POST /stories
   # POST /stories.json
-  #def create
-    #@story = Story.new(params[:story])
+  def create
+    @story = Story.new(params[:story].merge creator: current_user)
 
-    #respond_to do |format|
-      #if @story.save
-        #format.html { redirect_to @story, notice: 'Story was successfully created.' }
-        #format.json { render json: @story, status: :created, location: @story }
-      #else
-        #format.html { render action: "new" }
-        #format.json { render json: @story.errors, status: :unprocessable_entity }
-      #end
-    #end
-  #end
+    if @story.save
+      params[:path_nodes].each do |path_node_params|
+        @story.path_nodes.create path_node_params
+      end
+
+      respond_to do |format|
+        format.html { redirect_to @story }
+        format.json { render action: :show, status: :created, location: @story }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @story.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # PUT /stories/1
   # PUT /stories/1.json
-  #def update
-    #@story = Story.find(params[:id])
+  def update
+    @story = Story.find(params[:id])
 
-    #respond_to do |format|
-      #if @story.update_attributes(params[:story])
-        #format.html { redirect_to @story, notice: 'Story was successfully updated.' }
-        #format.json { head :no_content }
-      #else
+    respond_to do |format|
+      if @story.update_attributes(params[:story])
+        format.html { redirect_to @story, notice: 'Story was successfully updated.' }
+        format.json { head :no_content }
+      else
         #format.html { render action: "edit" }
-        #format.json { render json: @story.errors, status: :unprocessable_entity }
-      #end
-    #end
-  #end
+        format.json { render json: @story.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   # DELETE /stories/1
   # DELETE /stories/1.json
@@ -86,4 +107,13 @@ class StoriesController < ApplicationController
       #format.json { head :no_content }
     #end
   #end
+
+  def scope_records
+    if params.key? :subtype
+      @stories = @stories.where(subtype: params[:subtype])
+    end
+
+    @stories.page params[:page]
+  end
+  protected :scope_records
 end

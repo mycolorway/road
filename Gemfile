@@ -31,6 +31,7 @@ gem 'sidekiq'
 gem 'thin'
 gem 'quiet_assets'
 gem 'nokogiri'
+gem 'geocoder'
 
 gem 'sqlite3'
 

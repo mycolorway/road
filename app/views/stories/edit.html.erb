@@ -1,0 +1,58 @@
+<div class="pg-story-edit">
+	<div class="bg" data-url="<%= random_cover(@story) %>"></div>
+	<div class="center">
+		<div class="header">
+			<h1 class="logo">
+				<%= link_to "Road.路", root_path %>
+			</h1>
+			<h2 class="story-title"><input type="text" value="<%= @story.title %>" name="story_title" /></h2>
+		</div>
+		<div class=map-wrap">
+			<div class="map-container" id="map-container">
+				<div class="loading">正在加载百度地图</div>
+			</div>
+			<input type="button" class="btn-open-marker" value="open" name="" />
+		</div>
+		<div class="images">
+			<ul>
+				<% @story.photos.each do |photo| %>
+					<li>
+						<a href="javascript:;">
+							<img src="<%= photo.attachment %>" />
+						</a>
+					</li>
+				<% end %>
+				<a href="javascript:;">添加</a>
+			</ul>
+		</div>
+		<div class="intro">
+			<textarea>
+				<%= @story.content %>
+			</textarea>
+		</div>
+	</div>
+</div>
+<script>
+	var storyNodes = <%= @story.path_nodes.to_json.html_safe %>
+</script>
+<script type="text/html" id="tpl-poi-form">
+	<div class="poi-form">
+		<div class="icons">
+			<img src="" />
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<input type="text" placeholder="标题" />
+		<textarea></textarea>
+	</div>
+
+</script>
+<% content_for :scripts do %>
+	<%= javascript_include_tag "pg-story-edit" %>
+<% end %>

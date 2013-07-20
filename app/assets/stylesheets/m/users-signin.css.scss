@@ -1,0 +1,19 @@
+#page-signin {
+	overflow: hidden;
+
+	.container {
+		background-image: url('/assets/m/app_signin_bg.png');
+		position: absolute;
+		height: 91%;
+		width: 100%;
+
+		.sigin-blah {
+			margin: 0 auto;
+			width: 210px;
+
+			.signin-list {
+				list-style-type: none;
+			}
+		}
+	}
+}

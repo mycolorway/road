@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require highcharts
 //= require road
-//= require pg-stories
+//= require MarkerTool

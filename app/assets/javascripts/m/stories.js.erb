@@ -3,8 +3,10 @@
 var map;
 
 $(function() {
-	initMap();
-
+	if ($('[data-page-stories]').length) {
+		initMap();
+	}
+	
 	$(document)
 	.on('click', '.ui-controlgroup-controls > .ui-radio:last', function(e) {
 		$('#map-container').fadeOut();
