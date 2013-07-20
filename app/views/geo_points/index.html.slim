@@ -1,0 +1,29 @@
+h1 Listing geo_points
+
+table
+  tr
+    th Latitude
+    th Longitude
+    th Elevation
+    th Attributes updated at
+    th Story
+    th Creator
+    th
+    th
+    th
+
+  - @geo_points.each do |geo_point|
+    tr
+      td = geo_point.latitude
+      td = geo_point.longitude
+      td = geo_point.elevation
+      td = geo_point.attributes_updated_at
+      td = geo_point.story
+      td = geo_point.creator
+      td = link_to 'Show', geo_point
+      td = link_to 'Edit', edit_geo_point_path(geo_point)
+      td = link_to 'Destroy', geo_point, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Geo point', new_geo_point_path

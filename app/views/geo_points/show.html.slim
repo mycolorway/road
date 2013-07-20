@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Latitude:
+  = @geo_point.latitude
+p
+  strong Longitude:
+  = @geo_point.longitude
+p
+  strong Elevation:
+  = @geo_point.elevation
+p
+  strong Attributes updated at:
+  = @geo_point.attributes_updated_at
+p
+  strong Story:
+  = @geo_point.story
+p
+  strong Creator:
+  = @geo_point.creator
+
+= link_to 'Edit', edit_geo_point_path(@geo_point)
+'|
+= link_to 'Back', geo_points_path

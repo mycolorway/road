@@ -1,0 +1,17 @@
+h1 Listing path_nodes
+
+table
+  tr
+    th
+    th
+    th
+
+  - @path_nodes.each do |path_node|
+    tr
+      td = link_to 'Show', path_node
+      td = link_to 'Edit', edit_path_node_path(path_node)
+      td = link_to 'Destroy', path_node, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Path node', new_path_node_path

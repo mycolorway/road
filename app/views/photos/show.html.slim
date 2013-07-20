@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Attachment:
+  = @photo.attachment
+p
+  strong Story:
+  = @photo.story
+p
+  strong Creator:
+  = @photo.creator
+
+= link_to 'Edit', edit_photo_path(@photo)
+'|
+= link_to 'Back', photos_path

@@ -11,7 +11,43 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130720060351) do
+ActiveRecord::Schema.define(:version => 20130720062919) do
+
+  create_table "geo_points", :force => true do |t|
+    t.string   "sti_type",              :null => false
+    t.decimal  "latitude",              :null => false
+    t.decimal  "longitude",             :null => false
+    t.decimal  "elevation",             :null => false
+    t.datetime "attributes_updated_at", :null => false
+    t.integer  "story_id",              :null => false
+    t.integer  "creator_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
+
+  add_index "geo_points", ["creator_id"], :name => "index_geo_points_on_creator_id"
+  add_index "geo_points", ["story_id"], :name => "index_geo_points_on_story_id"
+
+  create_table "photos", :force => true do |t|
+    t.string   "attachment"
+    t.integer  "story_id",   :null => false
+    t.integer  "creator_id", :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "photos", ["creator_id"], :name => "index_photos_on_creator_id"
+  add_index "photos", ["story_id"], :name => "index_photos_on_story_id"
+
+  create_table "stories", :force => true do |t|
+    t.string   "title",      :null => false
+    t.text     "body"
+    t.integer  "creator_id", :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "stories", ["creator_id"], :name => "index_stories_on_creator_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

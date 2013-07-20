@@ -1,0 +1,17 @@
+h1 Listing pois
+
+table
+  tr
+    th
+    th
+    th
+
+  - @pois.each do |poi|
+    tr
+      td = link_to 'Show', poi
+      td = link_to 'Edit', edit_poi_path(poi)
+      td = link_to 'Destroy', poi, :confirm => 'Are you sure?', :method => :delete
+
+br
+
+= link_to 'New Poi', new_poi_path

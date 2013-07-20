@@ -1,0 +1,13 @@
+= simple_form_for(@geo_point) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :latitude
+    = f.input :longitude
+    = f.input :elevation
+    = f.input :attributes_updated_at
+    = f.association :story
+    = f.association :creator
+
+  .form-actions
+    = f.button :submit
