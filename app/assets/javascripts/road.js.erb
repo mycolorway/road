@@ -66,6 +66,21 @@ window.rd = {
             .replace(/'/g, '&#39;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
+	},
+
+	editPoi: function(e) {
+		console.log(e);
+		var marker = e.target,
+			form = rd.template('tpl-poi-form', {});
+			// data = marker.data('poiInfo');
+
+		var infoWin = new BMap.InfoWindow(form, {
+			width: 300,
+			height: 200,
+			enableMessage: false
+		});
+
+		marker.openInfoWindow(infoWin);
 	}
 }
 

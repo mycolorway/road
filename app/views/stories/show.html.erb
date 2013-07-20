@@ -1,3 +1,4 @@
+
 <div class="pg-story">
 	<div class="bg" data-url="<%= random_cover(@story) %>"></div>
 	<div class="center">
@@ -104,3 +105,4 @@
 	<%= javascript_include_tag "pg-story" %>
 <% end %>
 
+<%= link_to "edit", edit_story_path(@story) %>
