@@ -47,4 +47,7 @@
 	<p>下降: {{ total_descending_m }}</p>
 	<a href="{{ show_url }}">查看详细</a>
 </script>
+<% content_for :scripts do %>
+	<%= javascript_include_tag "pg-stories" %>
+<% end %>
 <input type="hidden" id="by-bounds-url" value="<%= by_bounds_stories_path format: :json %>" />

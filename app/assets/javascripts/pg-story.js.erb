@@ -1,0 +1,181 @@
+(function($) {
+
+var pg = '.pg-story';
+var map;
+
+$(function() {
+	initMap();
+	// renderBg();
+
+	// $(document)
+});
+
+function renderBg() {
+	var bgEl = $('.bg'),
+		url = bgEl.data('url');
+
+	rd.loadImage(url, function(img) {
+		bgEl.css({
+            'background-image': 'url(' + img.src + ')'
+        });
+
+        setTimeout(function() {
+            bgEl.css('opacity', 1);
+        }, 1000);
+	});
+}
+
+function initMap () {
+	map = new BMap.Map('map-container', rd.mapBasicOpts);
+	map.addEventListener('load', function() {
+		renderPath();
+	});
+	map.centerAndZoom('成都', 11);
+
+	mapNav = new BMap.NavigationControl({
+		anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+		showZoomInfo: false,
+		type: BMAP_NAVIGATION_CONTROL_ZOOM
+	});
+	map.addControl(mapNav);
+	map.enableScrollWheelZoom();
+}
+
+function renderPath() {
+	var points = [],
+		point,
+		firstPoint,
+		yMin,
+		yMax,
+		chartData = [];
+
+	$.each(storyNodes, function(idx, node) {
+		var x, y;
+
+		point = new BMap.Point(node.longitude, node.latitude);
+		points.push(point);
+		y = node.elevation*1;
+
+		if (idx == 0) {
+			x = 0;
+			yMin = y;
+			yMax = y;
+			firstPoint = point;
+		} else {
+			x = map.getDistance(firstPoint, point);
+		}
+
+		x = (x/1000).toFixed(3);
+
+		if (y < yMin) {
+			yMin = y;
+		}
+
+		if (y > yMax) {
+			yMax = y;
+		}
+
+		chartData.push([x, y]);
+	});
+
+	console.log(yMin);
+	console.log(yMax);
+
+	polyline = new BMap.Polyline(points, rd.polylineBasicOpts);
+	map.addOverlay(polyline);
+	map.setViewport(points);
+
+	$('#chart').highcharts({
+		chart: {
+			spaceingBottom: 0,
+			spaceingRight: 0,
+			type:       "areaspline",
+			zoomType:   "x"
+		},
+		title: {
+			text: null
+		},
+		xAxis: {
+			title: {
+				text: null
+			},
+			startOntick: false,
+			labels: {
+				align: 'left',
+				x: 0,
+				y: -5,
+				style: {
+					color: '#bbb'
+				}
+			}
+		},
+		credits: {
+			enabled: false
+			// position: {
+			// 	verticalAlign: 'top',
+			// 	align: 'right',
+			// 	y: -5
+			// }
+		},
+		yAxis: {
+			min: yMin,
+			max: yMax,
+			title: {
+				text: null
+			},
+			labels: {
+				align: 'left',
+				x: 0,
+				y: -2,
+				style: {
+					color: '#bbb'
+				}
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			formatter: function() {
+				return '距离起点' + this.x + "公里<br/>海拔" + this.y + '米';
+			}
+		},
+		plotOptions: {
+			series: {
+				// fillColor: '#278389',
+				fillOpacity: 0.1,
+				lineColor: '#29848a',
+				lineWidth: 1,
+				marker: {
+					enabled: false,
+					states: {
+						hover: {
+						enabled: true
+						}
+					}
+				}
+			}
+		},
+		series: [{
+			data: chartData
+		}]
+	});
+
+	console.log(chartData);
+	return
+
+	// startMarker = new BMap.Marker(points[0]);
+	// startMarker.addEventListener('click', function(e, target) {
+	// 	var storyInfo = rd.template('tpl-story-info', story);
+	// 		infoWin = new BMap.InfoWindow(storyInfo, {
+	// 			width: 240,
+	// 			height: 140,
+	// 			enableMessage: false,
+	// 			title: story.title
+	// 		});
+	// 	this.openInfoWindow(infoWin);
+	// });
+	// map.addOverlay(startMarker);
+}
+
+})(jQuery);
