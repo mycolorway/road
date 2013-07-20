@@ -4,3 +4,4 @@ json.show_url story_url(story)
 json.static_map_url story.static_map_url_baidu
 json.path_nodes_url story_path_nodes_url(story, format: :json)
 json.photos_url story_photos_url(story, format: :json)
+json.pois_url story_pois_url(story, format: :json)

@@ -12,6 +12,8 @@
 #  creator_id            :integer
 #  created_at            :datetime        not null
 #  updated_at            :datetime        not null
+#  subtype               :integer         default(0), not null
+#  description           :text
 #
 
 require 'spec_helper'
