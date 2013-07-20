@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130720135730) do
+ActiveRecord::Schema.define(:version => 20130720163924) do
 
   create_table "geo_points", :force => true do |t|
     t.string   "sti_type",                             :null => false
@@ -42,11 +42,14 @@ ActiveRecord::Schema.define(:version => 20130720135730) do
   add_index "photos", ["story_id"], :name => "index_photos_on_story_id"
 
   create_table "stories", :force => true do |t|
-    t.string   "title",      :null => false
+    t.string   "title",              :null => false
     t.text     "content"
-    t.integer  "creator_id", :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "creator_id",         :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.decimal  "total_distance_km",  :null => false
+    t.decimal  "total_climbing_m",   :null => false
+    t.decimal  "total_descending_m", :null => false
   end
 
   add_index "stories", ["creator_id"], :name => "index_stories_on_creator_id"

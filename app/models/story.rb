@@ -21,6 +21,15 @@ class Story < ActiveRecord::Base
 
   validates :title, :creator, presence: true
 
+  before_validation do
+    self.total_distance_km = self.class.cal_total_distance path_nodes \
+      if total_distance_km.blank?
+
+    self.total_climbing_m, self.total_descending_m = \
+      self.class.cal_total_climbing_and_descending path_nodes \
+      if total_climbing_m.blank? || total_descending_m.blank?
+  end
+
   # ------
   # scopes
   # ------
@@ -61,22 +70,37 @@ class Story < ActiveRecord::Base
       "paths=#{points_query}&pathStyles=0xff0000,1,1"
   end
 
-  # km
-  def total_distance_km
-    # TODO
-    100
+  def self.cal_total_distance(path_nodes)
+    result = 0
+    path_nodes.each_with_index do |cur_node, idx|
+      next if 0 == idx
+
+      prev_node = path_nodes[idx - 1]
+      result += Geocoder::Calculations.distance_between(
+        [cur_node.latitude, cur_node.longitude],
+        [prev_node.latitude, prev_node.longitude],
+        units: :km)
+    end
+    result
   end
 
-  # m
-  def total_climbing_m
-    # TODO
-    100
-  end
+  def self.cal_total_climbing_and_descending(path_nodes)
+    climbing = 0
+    descending = 0
 
-  # m
-  def total_descending_m
-    # TODO
-    100
+    path_nodes.each_with_index do |cur_node, idx|
+      next if 0 == idx
+
+      prev_node = path_nodes[idx - 1]
+      diff = cur_node.elevation - prev_node.elevation
+      if diff > 0
+        climbing += diff
+      else
+        descending += -diff
+      end
+    end
+
+    [climbing, descending]
   end
 
   def difficulty_index
