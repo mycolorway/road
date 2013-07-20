@@ -15,7 +15,12 @@
 #
 
 class GeoPoint < ActiveRecord::Base
+  self.inheritance_column = :sti_type
+
   belongs_to :story
-  belongs_to :creator
-  attr_accessible :attributes_updated_at, :elevation, :latitude, :longitude
+  belongs_to :creator, class_name: 'User'
+
+  before_validation do
+    self.attributes_updated_at = Time.now if attributes_updated_at.blank?
+  end
 end

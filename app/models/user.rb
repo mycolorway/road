@@ -18,5 +18,4 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and , :trackable,
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable#, :omniauthable
-  # attr_accessible :title, :body
 end

@@ -15,5 +15,4 @@
 #
 
 class Poi < GeoPoint
-  # attr_accessible :title, :body
 end
