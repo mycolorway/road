@@ -9,12 +9,16 @@ class StoriesController < ApplicationController
     require_params :lat_n, :lng_e, :lat_s, :lng_w
 
     @stories = Story.by_bounds(params).page params[:page]
+
+    render :index
   end
 
   def by_keyword
     require_params :q
 
     @stories = Story.by_keyword(params[:q]).page params[:page]
+
+    render :index
   end
 
   # GET /stories/1
