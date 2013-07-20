@@ -36,22 +36,21 @@ class PathNode < GeoPoint
       name: "PathNode_#{record.id}",
       original_lat: record.latitude,
       original_lon: record.longitude,
-      original_coord_type: 3,
+      original_coord_type: 1,
       databox_id: Yetting.baidu_lbs_databox_id,
       ak: Yetting.baidu_ak
 
-    return unless 0 == resp['status'] && resp['id'].present?
+    raise "#{self.name}#sync_to_baidu failed with status #{resp['status']}" unless 0 == resp['status']
 
     record.baidu_id = resp['id']
 
     resp = JSON.parse RestClient.get 'http://api.map.baidu.com/geodata/poi/'\
       "#{record.baidu_id}?ak=#{Yetting.baidu_ak}"
 
-    Rails.logger.warn resp
-    return unless 0 == resp['status']
+    raise "#{self.name}#sync_to_baidu failed with status #{resp['status']}" unless 0 == resp['status']
 
     record.baidu_lat = resp['poi']['latitude']
     record.baidu_lng = resp['poi']['longitude']
-    record.save
+    record.save!
   end
 end

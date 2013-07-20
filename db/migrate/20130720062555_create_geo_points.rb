@@ -12,6 +12,14 @@ class CreateGeoPoints < ActiveRecord::Migration
       t.belongs_to :story, null: false, index: true
       t.belongs_to :creator
 
+      t.column :subtype, 'tinyint unsigned', null: false, default: 0
+      t.string :title, null: false, default: ''
+      t.text :description
+
+      t.integer :baidu_id, index: true
+      t.decimal :baidu_lat, precision: 10, scale: 6
+      t.decimal :baidu_lng, precision: 10, scale: 6
+
       t.timestamps
     end
     add_index :geo_points, :story_id

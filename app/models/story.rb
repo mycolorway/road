@@ -3,16 +3,16 @@
 # Table name: stories
 #
 #  id                 :integer(4)      not null, primary key
+#  subtype            :integer(1)      not null
 #  title              :string(255)     not null
 #  content            :text
+#  total_distance_km  :decimal(10, 2)  default(0.0), not null
+#  total_climbing_m   :decimal(10, 2)  default(0.0), not null
+#  total_descending_m :decimal(10, 2)  default(0.0), not null
+#  difficulty_index   :decimal(10, 2)  default(0.0), not null
 #  creator_id         :integer(4)      not null
 #  created_at         :datetime        not null
 #  updated_at         :datetime        not null
-#  total_distance_km  :integer(10)     not null
-#  total_climbing_m   :integer(10)     not null
-#  total_descending_m :integer(10)     not null
-#  subtype            :integer(1)      not null
-#  difficulty_index   :integer(10)     not null
 #
 
 class Story < ActiveRecord::Base
@@ -105,7 +105,7 @@ class Story < ActiveRecord::Base
 
     points_query = path_nodes.map do |node|
       if node.baidu_lat && node.baidu_lng
-        "#{node.baidu_lng.round(6)},#{node.baidu_lat.round(6)}"
+        "#{node.baidu_lng},#{node.baidu_lat}"
       else
         nil
       end
@@ -113,7 +113,7 @@ class Story < ActiveRecord::Base
 
     'http://api.map.baidu.com/staticimage?'\
       "center=#{center_lng},#{center_lat}&width=#{width}&height=#{height}&"\
-      "paths=#{points_query}&pathStyles=0xff0000,1,1"
+      "paths=#{points_query}&pathStyles=0xff0000,6,0.9"
   end
 
   def biking?
@@ -131,6 +131,7 @@ class Story < ActiveRecord::Base
     self.total_distance_km = nil
     self.total_climbing_m = nil
     self.total_descending_m = nil
+    self.difficulty_index = nil
     self.save!
   end
 

@@ -10,6 +10,8 @@ Road::Application.routes.draw do
       get 'by_user/:user_id', action: :by_user, constraints: { user_id: /\d+/ }
     end
 
+    get :poster, on: :member
+
     resources :path_nodes, :pois, :photos
   end
 

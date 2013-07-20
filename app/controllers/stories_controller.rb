@@ -43,6 +43,10 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
   end
 
+  def poster
+    @story = Story.find(params[:id])
+  end
+
   # GET /stories/new
   # GET /stories/new.json
   #def new

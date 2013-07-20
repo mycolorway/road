@@ -1,0 +1,9 @@
+<h1><%= @story.title %></h1>
+<ul>
+  <li>Distance: <%= @story.total_distance_km %>KM</li>
+  <li>Total Climbing: <%= @story.total_climbing_m %>M</li>
+  <li>Total Descending: <%= @story.total_descending_m %>M</li>
+  <li>Difficulty Index: <%= @story.difficulty_index %></li>
+</ul>
+<p><%= @story.content %></p>
+<img src=<%= @story.static_map_url_baidu 800, 200 %> />

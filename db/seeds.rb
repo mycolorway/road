@@ -19,7 +19,7 @@ unless Story.exists?
 
     doc = Nokogiri::XML sample_dir.join(file).open
 
-    subtype = if 2 == idx
+    subtype = if file.to_s['hiking']
                 Story::SUBTYPE_HIKING
               else
                 Story::SUBTYPE_BIKING
@@ -45,8 +45,8 @@ unless Story.exists?
   end
 end
 
-if Story.where(id: 2).exists?
-  story = Story.find 2
+if Story.exists?
+  story = Story.first
   user = User.first!
 
   sample_dir = Rails.root.join('db')
