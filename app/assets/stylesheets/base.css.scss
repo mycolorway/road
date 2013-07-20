@@ -1,3 +1,17 @@
+a {
+	color:#23AAB6;
+	text-decoration: none;
+	&:hover {
+		color:#43CAD6;
+	}
+}
+
+@font-face {
+    font-family: DataNum;
+    src: url('DINCond-Regular.otf');
+    font-weight:200;
+}
+
 ////////////////- Mixins
 @mixin text-shadow($x:0, $y:1px, $depth:0px, $color:rgba(255,255,255,1)) {
   -webkit-text-shadow: $x $y $depth $color;
@@ -86,3 +100,4 @@
 html, textarea {
 	font-family:helvetica,Arial;
 }
+
