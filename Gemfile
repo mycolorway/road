@@ -29,6 +29,7 @@ gem 'clockwork', require: nil
 gem 'sidekiq'
 gem 'thin'
 gem 'quiet_assets'
+gem 'nokogiri'
 
 gem 'sqlite3'
 
@@ -52,7 +53,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
+  gem 'annotate', require: nil
   gem 'pry-rails'
   gem 'pry-remote'
   gem 'better_errors'
