@@ -14,33 +14,39 @@ unless Story.exists?
   user = User.first!
 
   sample_dir = Rails.root.join('db')
-  sample_dir.entries.each do |file|
+  sample_dir.entries.each_with_index do |file, idx|
     next unless '.gpx' == file.extname
 
     doc = Nokogiri::XML sample_dir.join(file).open
 
-    ActiveRecord::Base.transaction do
-      story = Story.create! title: doc.css('trk > name').inner_text, creator: user
+    subtype = if file.to_s['hiking']
+                Story::SUBTYPE_HIKING
+              else
+                Story::SUBTYPE_BIKING
+              end
+    story = Story.create! title: doc.css('trk > name').inner_text,
+      creator: user, subtype: subtype
 
-      points = []
-      doc.css('trkpt').each do |trkpt|
-        points << {
-          latitude: trkpt['lat'],
-          longitude: trkpt['lon'],
-          elevation: (trkpt>'ele').inner_text,
-          created_at: (trkpt>'time').inner_text
-        }
-      end
-
-      points.sort{ |x, y| x[:timestamp] <=> y[:timestamp] }.each do |point|
-        story.path_nodes.create! point
-      end
+    points = []
+    doc.css('trkpt').each do |trkpt|
+      points << {
+        latitude: trkpt['lat'],
+        longitude: trkpt['lon'],
+        elevation: (trkpt>'ele').inner_text,
+        created_at: (trkpt>'time').inner_text
+      }
     end
+
+    points.sort{ |x, y| x[:timestamp] <=> y[:timestamp] }.each do |point|
+      story.path_nodes.create! point
+    end
+
+    story.update_stat!
   end
 end
 
-if Story.where(id: 2).exists?
-  story = Story.find 2
+if Story.exists?
+  story = Story.first
   user = User.first!
 
   sample_dir = Rails.root.join('db')

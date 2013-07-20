@@ -1,5 +1,6 @@
 defaults: &defaults
   baidu_ak: BBa186487b465cc21c5d692f7523df90
+  baidu_lbs_databox_id: 17050
 
 development:
   <<: *defaults

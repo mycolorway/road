@@ -43,6 +43,10 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
   end
 
+  def poster
+    @story = Story.find(params[:id])
+  end
+
   # GET /stories/new
   # GET /stories/new.json
   #def new
@@ -68,6 +72,8 @@ class StoriesController < ApplicationController
       params[:path_nodes].each do |path_node_params|
         @story.path_nodes.create path_node_params
       end
+
+      @story.update_stat!
 
       respond_to do |format|
         format.html { redirect_to @story }

@@ -1,13 +1,15 @@
 
 <div class="pg-story">
-	<div class="bg" data-url="<%= random_cover(@story) %>"></div>
+	<div class="bg-static">
+		<div class="bg" data-url="<%= random_cover(@story) %>"></div>
+	</div>
 	<div class="center">
 		<div class="header">
 			<h1 class="logo">
 				<%= link_to "Road.路", root_path %>
 			</h1>
 			<h2 class="story-title"><%= @story.title %></h2>
-			<span class="like">116</span>
+			<a class="like" href="#" title="赞！"><i class="icon-heart"></i> <em>116</em></a>
 		</div>
 		<div class="map-container" id="map-container">
 			<div class="loading">正在加载百度地图</div>
@@ -17,17 +19,17 @@
 			<table cellspacing="0">
 				<thead>
 					<tr>
-						<th>里程</th>
-						<th>总爬升</th>
-						<th>总下降</th>
-						<th class="difficulty">难度系数<%= link_to "这是什么？", "", class: "what" %></th>
+						<th class="data-label-d"><i class="icon-road"></i> 里程</th>
+						<th class="data-label-cli"><img src="../assets/web_icn_climbing.png"/> 总爬升</th>
+						<th class="data-label-des"><img src="../assets/web_icon_decending.png"/> 总下降</th>
+						<th class="difficulty"><i class="icon-trophy"></i> 难度系数 <%= link_to "(?)", "http://www.climbbybike.com/climb_difficulty.asp", class: "what", title: "点击了解「难度系数」的相关介绍和计算方法", target: "_blank" %></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td><%= @story.total_distance_km %></td>
-						<td><%= @story.total_climbing_m %></td>
-						<td><%= @story.total_descending_m %></td>
+						<td><%= @story.total_distance_km %> km</td>
+						<td><%= @story.total_climbing_m %> m</td>
+						<td><%= @story.total_descending_m %> m</td>
 						<td class="difficulty"><%= @story.difficulty_index %></td>
 					</tr>
 				</tbody>
@@ -46,18 +48,44 @@
 		</div>
 		<div class="intro">
 			<%= @story.content %>
+			
+			<div class="intro-action">
+				<div class="copy-cc">
+					<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.zh"><img alt="知识共享许可协议" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.zh">知识共享署名-相同方式共享 3.0 未本地化版本许可协议</a>进行许可
+				</div>
+				<%= link_to "有关于本路线的信息补充？点此编辑", edit_story_path(@story), class: "edit-btn" %>
+			</div>
 		</div>
+		
 		<div class="main">
-			<div class="comments"></div>
+			<div class="comments">
+			    <div id="disqus_thread"></div>
+			    <script type="text/javascript">
+			        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+			        var disqus_shortname = 'roadlu'; // required: replace example with your forum shortname
+
+			        /* * * DON'T EDIT BELOW THIS LINE * * */
+			        (function() {
+			            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+			            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+			        })();
+			    </script>
+			    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+			    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+			</div>
 			<div class="share">
 				<div class="export">
 					<h5>导出</h5>
 					<ul>
 						<li>
-							<a href="">导出GPX</a>
+							<a href=""><i class="icon-location-arrow"></i> 以 GPX 格式导出</a>
 						</li>
 						<li>
-							<a href="">导出KML</a>
+							<a href=""><i class="icon-globe"></i> 以 KML 格式导出</a>
+						</li>
+						<li>
+							<a href=""><i class="icon-download"></i> 以 Garmin 设备格式导出</a>
 						</li>
 					</ul>
 				</div>
@@ -84,15 +112,26 @@
 					</h5>
 					<ul>
 						<li>
-							<a href="">引用到论坛</a>
+							<a href=""><i class="icon-comments"></i> 引用到论坛（BBCode）</a>
 						</li>
 						<li>
-							<a href="">引用到论坛</a>
+							<a href=""><i class="icon-rss-sign"></i> 引用到博客（HTML）</a>
 						</li>
 					</ul>
 				</div>
 				<div class="share-social">
 					<h5>分享</h5>
+					<!-- AddThis Button BEGIN -->
+					<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+						<a class="addthis_button_baidu"></a>
+						<a class="addthis_button_twitter"></a>
+						<a class="addthis_button_facebook"></a>
+						<a class="addthis_button_compact"></a>
+						<a class="addthis_counter addthis_bubble_style"></a>
+					</div>
+					<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+					<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=maklu"></script>
+					<!-- AddThis Button END -->
 				</div>
 			</div>
 		</div>
@@ -104,5 +143,3 @@
 <% content_for :scripts do %>
 	<%= javascript_include_tag "pg-story" %>
 <% end %>
-
-<%= link_to "edit", edit_story_path(@story) %>
