@@ -21,6 +21,14 @@ Road::Application.routes.draw do
 
       resources :path_nodes, :pois, :photos
     end
+
+    resources :users, shallow: true, constraints: { id: /\d+/ } do
+      collection do
+        get :sign_in
+      end
+
+      resources :path_nodes, :pois, :photos
+    end
   end
 
   # ----
