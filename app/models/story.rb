@@ -2,15 +2,23 @@
 #
 # Table name: stories
 #
-#  id         :integer         not null, primary key
-#  title      :string(255)     not null
-#  content    :text
-#  creator_id :integer         not null
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
+#  id                 :integer         not null, primary key
+#  title              :string(255)     not null
+#  content            :text
+#  creator_id         :integer         not null
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
+#  total_distance_km  :decimal(, )     not null
+#  total_climbing_m   :decimal(, )     not null
+#  total_descending_m :decimal(, )     not null
+#  subtype            :integer         not null
+#  difficulty_index   :decimal(, )     not null
 #
 
 class Story < ActiveRecord::Base
+  SUBTYPE_BIKING = 1
+  SUBTYPE_HIKING = 2
+
   belongs_to :creator, class_name: 'User'
 
   has_many :path_nodes
@@ -28,6 +36,8 @@ class Story < ActiveRecord::Base
     self.total_climbing_m, self.total_descending_m = \
       self.class.cal_total_climbing_and_descending path_nodes \
       if total_climbing_m.blank? || total_descending_m.blank?
+
+    self.difficulty_index = self.cal_difficulty_index if difficulty_index.blank?
   end
 
   # ------
@@ -55,6 +65,14 @@ class Story < ActiveRecord::Base
     where('title like ? or content like ?', q ,q)
   end
 
+  def self.biking
+    where(subtype: SUBTYPE_BIKING)
+  end
+
+  def self.hiking
+    where(subtype: SUBTYPE_HIKING)
+  end
+
   # ----------
   # attributes
   # ----------
@@ -70,6 +88,17 @@ class Story < ActiveRecord::Base
       "paths=#{points_query}&pathStyles=0xff0000,1,1"
   end
 
+  def biking?
+    SUBTYPE_BIKING == subtype
+  end
+
+  def hiking?
+    SUBTYPE_HIKING == subtype
+  end
+
+  # --------------
+  # business logic
+  # --------------
   def self.cal_total_distance(path_nodes)
     result = 0
     path_nodes.each_with_index do |cur_node, idx|
@@ -103,8 +132,15 @@ class Story < ActiveRecord::Base
     [climbing, descending]
   end
 
-  def difficulty_index
-    # TODO
-    10
+  def cal_difficulty_index
+    t = path_nodes.maximum(:elevation)
+    d = total_distance_km * 1000
+    if biking?
+      h = t - path_nodes.minimum(:elevation)
+      (h * 100 / d) * 2 + h * h / d + d / 1000 + (t - 1000) / 100
+    else
+      c = total_climbing_m
+      0.1 * c * c / d + 40 * c / d + d / 1000 + t / 1000
+    end
   end
 end

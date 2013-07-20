@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130720163924) do
+ActiveRecord::Schema.define(:version => 20130720172643) do
 
   create_table "geo_points", :force => true do |t|
     t.string   "sti_type",                             :null => false
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(:version => 20130720163924) do
     t.decimal  "total_distance_km",  :null => false
     t.decimal  "total_climbing_m",   :null => false
     t.decimal  "total_descending_m", :null => false
+    t.integer  "subtype",            :null => false
+    t.decimal  "difficulty_index",   :null => false
   end
 
   add_index "stories", ["creator_id"], :name => "index_stories_on_creator_id"
