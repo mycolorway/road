@@ -19,7 +19,7 @@ gem 'cancan'
 gem 'simple_form'#, github: 'plataformatec/simple_form', tag: 'v3.0.0.rc'
 gem 'draper'
 gem 'kaminari'
-gem 'slim-rails'
+#gem 'slim-rails'
 gem 'jbuilder'
 gem 'capistrano-rbenv', require: nil
 gem 'capistrano-foreman', require: nil#, github: 'hyperoslo/capistrano-foreman'
