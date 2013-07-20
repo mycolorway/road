@@ -14,6 +14,7 @@
 #  updated_at            :datetime        not null
 #  subtype               :integer         default(0), not null
 #  description           :text
+#  title                 :string(255)     default(""), not null
 #
 
 require 'spec_helper'
