@@ -79,7 +79,6 @@ window.rd = {
 			form = $(rd.template('tpl-poi-form', {})),
 			iconList = $(rd.iconsList),
 			selectedIcon = iconList.first().find('img').attr('src');
-		debugger
 
 		if (data) {
 			form.attr('action', '/pois/' + data.id);

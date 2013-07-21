@@ -17,6 +17,7 @@
 			</div>
 		</div>
 		<div class="images">
+			<h5>照片</h5>
 			<ul>
 				<% @story.photos.each do |photo| %>
 					<li>
@@ -25,10 +26,13 @@
 						</a>
 					</li>
 				<% end %>
-				<a href="javascript:;">添加</a>
+				<li>
+					<a class="add-img" href="javascript:;">添加</a>
+				</li>
 			</ul>
 		</div>
 		<div class="intro">
+			<h5>更多信息</h5>
 			<textarea>
 				<%= @story.content %>
 			</textarea>

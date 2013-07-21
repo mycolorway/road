@@ -302,7 +302,39 @@
 	}
 
 	.images {
-		margin-top; 30px;
+		margin-top: 30px;
+
+		.add-img {
+			background-color: #fff;
+			border: 1px solid #f6f6f6;
+			background: image-url("icon-plus.png") center center no-repeat;
+			width: 99px;
+			height: 98px;
+			display: block;
+			text-indent: -9999px;
+			@include radius();
+			@include box-shadow();
+		}
+	}
+
+	.intro {
+		border: none;
+
+		textarea {
+			padding: 3px;
+			width: 912px;
+			border: 1px solid #ccc;
+			@include radius(4px);
+
+		}
+	}
+
+	.images, 
+	.intro {
+		& > h5 {
+			font-size: 16px;
+			margin-bottom: 0.5em;
+		}
 	}
 
 }
