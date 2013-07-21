@@ -2,12 +2,17 @@
 
   <h1><%= @story.title %></h1>
   <ul>
-    <li>Distance: <%= @story.total_distance_km %>KM</li>
-    <li>Total Climbing: <%= @story.total_climbing_m %>M</li>
-    <li>Total Descending: <%= @story.total_descending_m %>M</li>
-    <li>Difficulty Index: <%= @story.difficulty_index %></li>
+    <li class="type type-biking">Biking</li>
+    <li>里程: <%= @story.total_distance_km %> km</li>
+    <li>总爬升: <%= @story.total_climbing_m %> m</li>
+    <li>总下降: <%= @story.total_descending_m %> m</li>
+    <li>难度系数: <%= @story.difficulty_index %></li>
   </ul>
-  <p><%= @story.content %></p>
   <img src=<%= @story.static_map_url_baidu (params.key?('slim') ? 400 : 800), 200 %> />
+  <p>
+    <em>http://road.lu/2Dsg</em>
+    此路线由 ROAD.LU 提供
+  </p>
 
 </div>
+
