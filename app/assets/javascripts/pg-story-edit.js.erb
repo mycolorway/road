@@ -9,10 +9,12 @@ $(function() {
 	// renderBg();
 
 	$(document)
-	.on('click', '.btn-open-marker', function(){
+	.on('click', '.btn-open-marker-tool', function(){
 		markerTool.open();
 	})
-	
+	.on('click', '.btn-close-marker-tool', function(){
+		markerTool.close();
+	})
 	.on('ajax:success', '.form-poi', function(e, result) {
 		console.log(result);
 
@@ -61,7 +63,7 @@ function renderPath() {
 		point;
 
 	$.each(storyNodes, function(idx, node) {
-		point = new BMap.Point(node.longitude, node.latitude);
+		point = new BMap.Point(node.baidu_lng, node.baidu_lat);
 		points.push(point);
 	});
 

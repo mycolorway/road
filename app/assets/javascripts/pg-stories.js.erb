@@ -80,7 +80,7 @@ function renderPath(story, relatedEl) {
 				points = [];
 
 			$.each(nodes, function(idx, node) {
-				points.push(new BMap.Point(node.longitude, node.latitude));
+				points.push(new BMap.Point(node.baidu_lng, node.baidu_lat));
 			});
 
 			polyline = new BMap.Polyline(points, rd.polylineBasicOpts);

@@ -282,4 +282,27 @@
 		}
 	}
 
+	.map-wrap {
+		position: relative;
+
+		.marker-tool-buttons {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			padding: 3px 8px;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			@include radius();
+			
+			a {
+				color: #333;
+			}
+
+		}
+	}
+
+	.images {
+		margin-top; 30px;
+	}
+
 }

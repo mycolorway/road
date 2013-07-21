@@ -7,11 +7,14 @@
 			</h1>
 			<h2 class="story-title"><input type="text" value="<%= @story.title %>" name="story_title" /></h2>
 		</div>
-		<div class=map-wrap">
+		<div class="map-wrap">
 			<div class="map-container" id="map-container">
 				<div class="loading">正在加载百度地图</div>
 			</div>
-			<input type="button" class="btn-open-marker" value="open" name="" />
+			<div class="marker-tool-buttons">
+				<a href="javascript:;" class="btn-open-marker-tool">标记地点</a>
+				<a href="javascript:;" class="btn-close-marker-tool">取消标记</a>
+			</div>
 		</div>
 		<div class="images">
 			<ul>
