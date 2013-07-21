@@ -8,9 +8,14 @@ $(function() {
 	initMap();
 	// renderBg();
 
-	// $(document)
-	$(document).on('click', '.btn-open-marker', function(){
+	$(document)
+	.on('click', '.btn-open-marker', function(){
 		markerTool.open();
+	})
+	
+	.on('ajax:success', '.form-poi', function(e, result) {
+		console.log(result);
+
 	});
 });
 

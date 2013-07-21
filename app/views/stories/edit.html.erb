@@ -37,19 +37,27 @@
 </script>
 <script type="text/html" id="tpl-poi-form">
 	<div class="poi-form">
-		<div class="icons">
-			<img src="" />
-			<ul>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
-		</div>
-		<input type="text" placeholder="标题" />
-		<textarea></textarea>
+		<form method="post" class="form form-poi" action="<%= story_pois_path(@story) %>" data-remote>
+			<div class="icons">
+				<img class="selected-icon" src="" />
+				<ul class="icons-list">
+				</ul>
+			</div>
+			<div class="form-item">
+				<input type="text" class="title" name="title" placeholder="标题" />
+			</div>
+			<div class="form-item">
+				<textarea name="description" class="description"></textarea>
+			</div>
+			<input type="hidden" name="latitude" value="" />
+			<input type="hidden" name="longitude" value="" />
+			<input type="hidden" name="subtype" value="" />
+			<div class="form-buttons">
+				<button type="submit" class="btn btn-mini btn-save">保存</button>
+				<button type="button" class="btn btn-x btn-cancel">取消</button>
+				<a href="javascript:;" class="btn btn-x btn-del">删除</a>
+			</div>
+		</form>
 	</div>
 
 </script>

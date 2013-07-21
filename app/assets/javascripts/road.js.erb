@@ -70,18 +70,183 @@ window.rd = {
 
 	editPoi: function(e) {
 		console.log(e);
-		var marker = e.target,
-			form = rd.template('tpl-poi-form', {});
-			// data = marker.data('poiInfo');
 
+		var marker = e.target,
+			pos = marker.getPosition(),
+			el = $(marker.F),
+			icon = marker.getIcon(),
+			data = el.data('poiInfo'),
+			form = $(rd.template('tpl-poi-form', {})),
+			iconList = $(rd.iconsList),
+			selectedIcon = iconList.first().find('img').attr('src');
+		debugger
+
+		if (data) {
+			form.attr('action', '/pois/' + data.id);
+			form.addClass('edit')
+				.find('.title').val(data.title)
+				.end().find('.description').val(data.description);
+
+			form.find('.btn-del').show();
+		}
+
+
+
+		form.find('.icons-list').html(iconList)
+			.end().find('input[name=longitude]').val(pos.lng)
+			.end().find('input[name=latitude]').val(pos.lat);
+		form.find('.selected-icon').attr('src', selectedIcon);
+
+		icon.setInfoWindowAnchor(new BMap.Size(icon.size.width/2, -2));
+
+		form = $('<div />').append(form).html();
 		var infoWin = new BMap.InfoWindow(form, {
 			width: 300,
-			height: 200,
+			height: 160,
 			enableMessage: false
 		});
 
+		infoWin.addEventListener('open', function() {
+			$('.form-poi').on('click', '.icons-list li', function(e) {
+				var target = $(e.currentTarget),
+					form = target.closest('form'),
+					img = target.find('img'),
+					subtype = target.data('subtype');
+
+				form.find('[name=subtype]').val(subtype)
+					.end().find('.selected-icon').attr('src', img.attr('src'));
+			}).on('click', '.selected-icon', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				var target = $(e.target);
+				target.next().show();
+			});
+		});
+
 		marker.openInfoWindow(infoWin);
-	}
+	},
+
+	getPoints: function(story) {
+
+	},
+
+	poiIcons: [
+		'http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png',
+		// 'http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png',
+		// 'http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png',
+		// 'http://maps.google.com/mapfiles/kml/pushpin/ltblu-pushpin.png',
+		// 'http://maps.google.com/mapfiles/kml/pushpin/pink-pushpin.png',
+		// 'http://maps.google.com/mapfiles/kml/pushpin/purple-pushpin.png',
+		// 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
+
+		'http://maps.google.com/mapfiles/kml/paddle/blu-blank.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/grn-blank.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/ltblu-blank.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/pink-blank.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/purple-blank.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/red-blank.png',
+
+		'http://maps.google.com/mapfiles/kml/paddle/blu-circle.png', 
+		// 'http://maps.google.com/mapfiles/kml/paddle/grn-circle.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/ltblu-circle.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/pink-circle.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/purple-circle.png',
+		// 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/dining.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/coffee.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/bars.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/snack_bar.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/tram.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/lodging.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/wheel_chair_accessible.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/shopping.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/movies.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/convenience.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/grocery.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/arts.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/homegardenbusiness.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/electronics.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/mechanic.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/partly_cloudy.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/realestate.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/salon.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/dollar.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/parking_lot.png',
+		// 'http://maps.google.com/mapfiles/kml/shapes/gas_stations.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/cabs.png',
+		'http://maps.google.com/mapfiles/kml/shapes/bus.png',
+		'http://maps.google.com/mapfiles/kml/shapes/truck.png',
+		'http://maps.google.com/mapfiles/kml/shapes/rail.png',
+		'http://maps.google.com/mapfiles/kml/shapes/airports.png',
+		'http://maps.google.com/mapfiles/kml/shapes/ferry.png',
+		'http://maps.google.com/mapfiles/kml/shapes/heliport.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/subway.png',
+		'http://maps.google.com/mapfiles/kml/shapes/info.png',
+		'http://maps.google.com/mapfiles/kml/shapes/flag.png',
+		'http://maps.google.com/mapfiles/kml/shapes/earthquake.png',
+		'http://maps.google.com/mapfiles/kml/shapes/webcam.png',
+		'http://maps.google.com/mapfiles/kml/shapes/post_office.png',
+		'http://maps.google.com/mapfiles/kml/shapes/police.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/firedept.png',
+		'http://maps.google.com/mapfiles/kml/shapes/hospitals.png',
+		'http://maps.google.com/mapfiles/kml/shapes/info_circle.png',
+		'http://maps.google.com/mapfiles/kml/shapes/phone.png',
+		'http://maps.google.com/mapfiles/kml/shapes/caution.png',
+		'http://maps.google.com/mapfiles/kml/shapes/falling_rocks.png',
+		'http://maps.google.com/mapfiles/kml/shapes/camera.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/parks.png',
+		'http://maps.google.com/mapfiles/kml/shapes/campfire.png',
+		'http://maps.google.com/mapfiles/kml/shapes/picnic.png',
+		'http://maps.google.com/mapfiles/kml/shapes/campground.png',
+		'http://maps.google.com/mapfiles/kml/shapes/ranger_station.png',
+		'http://maps.google.com/mapfiles/kml/shapes/toilets.png',
+		'http://maps.google.com/mapfiles/kml/shapes/poi.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/hiker.png',
+		'http://maps.google.com/mapfiles/kml/shapes/cycling.png',
+		'http://maps.google.com/mapfiles/kml/shapes/motorcycling.png',
+		'http://maps.google.com/mapfiles/kml/shapes/horsebackriding.png',
+		'http://maps.google.com/mapfiles/kml/shapes/play.png',
+		'http://maps.google.com/mapfiles/kml/shapes/golf.png',
+		'http://maps.google.com/mapfiles/kml/shapes/trail.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/water.png',
+		'http://maps.google.com/mapfiles/kml/shapes/snowflake_simple.png',
+		'http://maps.google.com/mapfiles/kml/shapes/marina.png',
+		'http://maps.google.com/mapfiles/kml/shapes/fishing.png',
+		'http://maps.google.com/mapfiles/kml/shapes/sailing.png',
+		'http://maps.google.com/mapfiles/kml/shapes/swimming.png',
+		'http://maps.google.com/mapfiles/kml/shapes/ski.png',
+
+		'http://maps.google.com/mapfiles/kml/shapes/man.png',
+		'http://maps.google.com/mapfiles/kml/shapes/woman.png',
+		'http://maps.google.com/mapfiles/kml/shapes/rainy.png',
+		'http://maps.google.com/mapfiles/kml/shapes/volcano.png',
+		'http://maps.google.com/mapfiles/kml/shapes/sunny.png',
+		'http://maps.google.com/mapfiles/kml/shapes/euro.png',
+		'http://maps.google.com/mapfiles/kml/shapes/yen.png'
+	]
 }
+
+window.rd.iconsList = (function() {
+		var html = '';
+		$.each(rd.poiIcons, function(idx, url) {
+			html += '<li data-subtype="' + idx + '"><img src="' + url + '" /></li>';
+		});
+
+		return html
+	})()
+
+rd.preloadImages(rd.poiIcons);
 
 })(jQuery);
