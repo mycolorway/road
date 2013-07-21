@@ -1,5 +1,5 @@
 <div class="pg-story-edit">
-	<div class="bg" data-url="<%= random_cover(@story) %>"></div>
+	<div class="bg"></div>
 	<div class="center">
 		<div class="header">
 			<h1 class="logo">
@@ -7,13 +7,17 @@
 			</h1>
 			<h2 class="story-title"><input type="text" value="<%= @story.title %>" name="story_title" /></h2>
 		</div>
-		<div class=map-wrap">
+		<div class="map-wrap">
 			<div class="map-container" id="map-container">
 				<div class="loading">正在加载百度地图</div>
 			</div>
-			<input type="button" class="btn-open-marker" value="open" name="" />
+			<div class="marker-tool-buttons">
+				<a href="javascript:;" class="btn-open-marker-tool">标记地点</a>
+				<a href="javascript:;" class="btn-close-marker-tool">取消标记</a>
+			</div>
 		</div>
 		<div class="images">
+			<h5>照片</h5>
 			<ul>
 				<% @story.photos.each do |photo| %>
 					<li>
@@ -22,34 +26,47 @@
 						</a>
 					</li>
 				<% end %>
-				<a href="javascript:;">添加</a>
+				<li>
+					<a class="add-img" href="javascript:;">添加</a>
+				</li>
 			</ul>
 		</div>
 		<div class="intro">
-			<textarea>
-				<%= @story.content %>
-			</textarea>
+			<h5>更多信息</h5>
+			<textarea><%= @story.content %></textarea>
+		</div>
+		<div class="buttons">
+		    <input type="submit" class="btn btn-primary" value="保存" name="" />
 		</div>
 	</div>
 </div>
 <script>
 	var storyNodes = <%= @story.path_nodes.to_json.html_safe %>
+	var poiNodes = <%= @story.pois.to_json.html_safe %>
 </script>
 <script type="text/html" id="tpl-poi-form">
 	<div class="poi-form">
-		<div class="icons">
-			<img src="" />
-			<ul>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
-		</div>
-		<input type="text" placeholder="标题" />
-		<textarea></textarea>
+		<form method="post" class="form form-poi" action="<%= story_pois_path @story, format: :json %>" data-remote>
+			<div class="icons">
+				<img class="selected-icon" src="" />
+				<ul class="icons-list">
+				</ul>
+			</div>
+			<div class="form-item">
+				<input type="text" class="title" name="title" placeholder="名称" />
+			</div>
+			<div class="form-item">
+				<textarea name="description" class="description" placeholder="描述"></textarea>
+			</div>
+			<input type="hidden" name="latitude" value="" />
+			<input type="hidden" name="longitude" value="" />
+			<input type="hidden" name="subtype" value="" />
+			<div class="form-buttons">
+				<button type="submit" class="btn btn-mini btn-save">保存</button>
+				<button type="button" class="btn btn-x btn-cancel">取消</button>
+				<a href="javascript:;" class="btn btn-x btn-del">删除</a>
+			</div>
+		</form>
 	</div>
 
 </script>

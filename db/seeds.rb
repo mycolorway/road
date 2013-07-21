@@ -45,14 +45,19 @@ unless Story.exists?
   end
 end
 
-if Story.exists?
-  story = Story.first
+if Story.exists? && User.exists?
   user = User.first!
 
-  sample_dir = Rails.root.join('db')
-  sample_dir.entries.each do |file|
-    next unless '.jpg' == file.extname
+  Story.find_each do |story|
+    story.photos.each do |photo|
+      photo.destroy
+    end
 
-    story.photos.create! attachment: sample_dir.join(file).open, creator: user
+    sample_dir = Rails.root.join('db')
+    sample_dir.entries.each do |file|
+      next unless '.jpg' == file.extname
+
+      story.photos.create! attachment: sample_dir.join(file).open, creator: user
+    end
   end
 end

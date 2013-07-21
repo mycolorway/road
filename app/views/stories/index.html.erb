@@ -17,7 +17,7 @@
 		<div class="search-results"></div>
     </div>
 	<div class="new-story-wrap">
-		<a href="" class="link-new-story">添加新路线</a>
+		<a href="/stories/new/" class="link-new-story">添加新路线</a>
 		<h5 class="title">添加路线</h5>
 		<p class="desc">通过上传或同步其他网站<br />的轨迹来添加新路线</p>
 	</div>
@@ -27,16 +27,16 @@
 </div>
 
 <script type="text/html" id="tpl-search-result">
-	<li>
+	<li class="result-item">
 		<div class="thumb">
 			<img src="{{ static_map_url }}" alt="{{ title }}" />
 		</div>
 		<div class="info">
 			<h5 class="title">{{ title }}</h5>
 			<p class="desc">
-				<span>距离: {{ total_distance_km }}</span>
-				<span>爬升: {{ total_climbing_m }}</span>
-				<span>下降: {{ total_descending_m }}</span>
+				<span><i class="icon-road"></i> {{ total_distance_km }}km</span>
+				<span><i class="icon-arrow-up"></i> {{ total_climbing_m }}m</span>
+				<span><i class="icon-arrow-down"></i> {{ total_descending_m }}m</span>
 			</p>
 		</div>
 	</li>

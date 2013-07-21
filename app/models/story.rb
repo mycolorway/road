@@ -103,17 +103,24 @@ class Story < ActiveRecord::Base
     center_lng = (path_nodes.map(&:longitude).inject{ |sum, ele| sum + ele } / \
                   path_nodes.length).round(6)
 
-    points_query = path_nodes.map do |node|
-      if node.baidu_lat && node.baidu_lng
-        "#{node.baidu_lng},#{node.baidu_lat}"
-      else
-        nil
-      end
-    end.compact.join(';')
+    nodes = path_nodes.where('baidu_lat is not null and baidu_lng is not null')
+    if 500 < nodes.count
+      slice_size = (path_nodes.count / 500).ceil
+      nodes = nodes.each_slice(slice_size).map{ |slice| slice.first }
+    end
+
+    points_query = nodes.map{ |node| "#{node.baidu_lng},#{node.baidu_lat}" }.\
+      join(';')
+
+    color = if hiking?
+              '0x037d8f'
+            else
+              '0xd60000'
+            end
 
     'http://api.map.baidu.com/staticimage?'\
       "center=#{center_lng},#{center_lat}&width=#{width}&height=#{height}&"\
-      "paths=#{points_query}&pathStyles=0xff0000,6,0.9"
+      "paths=#{points_query}&pathStyles=#{color},6,0.9"
   end
 
   def biking?
@@ -185,5 +192,12 @@ class Story < ActiveRecord::Base
   end
 
   def self.create_by_gps
+  end
+
+  def self.gen_poster_snapshot(record_id)
+    record = find record_id
+    snapshot_dir = Rails.root.join("public/posters/#{record_id}").to_s
+    `phantomjs lib/poster_snapshoot.js 'http://#{Yetting.host}/stories/#{record_id}/poster' '#{snapshot_dir}/wide.jpg'`
+    `phantomjs lib/poster_snapshoot.js 'http://#{Yetting.host}/stories/#{record_id}/poster?slim' '#{snapshot_dir}/slim.jpg'`
   end
 end

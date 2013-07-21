@@ -1,7 +1,7 @@
 
 <div class="pg-story">
 	<div class="bg-static">
-		<div class="bg" data-url="<%= random_cover(@story) %>"></div>
+		<div class="bg" data-url="<%= asset_path 'story-bg.jpg' %>"></div>
 	</div>
 	<div class="center">
 		<div class="header">
@@ -20,8 +20,8 @@
 				<thead>
 					<tr>
 						<th class="data-label-d"><i class="icon-road"></i> 里程</th>
-						<th class="data-label-cli"><img src="../assets/web_icn_climbing.png"/> 总爬升</th>
-						<th class="data-label-des"><img src="../assets/web_icon_decending.png"/> 总下降</th>
+						<th class="data-label-cli"><img src="<%= asset_path "web_icn_climbing.png" %>" /> 总爬升</th>
+						<th class="data-label-des"><img src="<%= asset_path "web_icon_decending.png" %>" /> 总下降</th>
 						<th class="difficulty"><i class="icon-trophy"></i> 难度系数 <%= link_to "(?)", "http://www.climbbybike.com/climb_difficulty.asp", class: "what", title: "点击了解「难度系数」的相关介绍和计算方法", target: "_blank" %></th>
 					</tr>
 				</thead>
@@ -93,16 +93,13 @@
 					<h5>相关链接</h5>
 					<ul>
 						<li>
-							<a href="">需找</a>
+							<a href="">上周六去龙泉爬坡的一些照片</a>
 						</li>
 						<li>
-							<a href="">需找</a>
+							<a href="">总算成功挑战龙泉山了</a>
 						</li>
 						<li>
-							<a href="">需找</a>
-						</li>
-						<li>
-							<a href="">需找</a>
+							<a href="">龙泉山周六整个山上堵人了</a>
 						</li>
 					</ul>
 				</div>
@@ -139,6 +136,8 @@
 </div>
 <script>
 	var storyNodes = <%= @story.path_nodes.to_json.html_safe %>
+	var poiNodes = <%= @story.pois.to_json.html_safe %>
+</script>
 </script>
 <% content_for :scripts do %>
 	<%= javascript_include_tag "pg-story" %>

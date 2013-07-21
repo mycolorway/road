@@ -5,9 +5,7 @@ var map;
 
 $(function() {
 	initMap();
-	// renderBg();
-
-	// $(document)
+	renderBg();
 });
 
 function renderBg() {
@@ -37,8 +35,21 @@ function initMap () {
 		showZoomInfo: false,
 		type: BMAP_NAVIGATION_CONTROL_ZOOM
 	});
+
+	// mapType = new BMap.MapTypeControl({
+	// 	mapTypes: [
+	// 		new BMap.MapType("地图", layers: new TileLayer({
+
+	// 		})),
+	// 		new BMap.MapType("卫星图", layers: new TileLayer({
+
+	// 		}))
+	// 	]
+	// });
 	map.addControl(mapNav);
+	// map.addControl(mapType);
 	map.enableScrollWheelZoom();
+
 }
 
 function renderPath() {
@@ -52,7 +63,7 @@ function renderPath() {
 	$.each(storyNodes, function(idx, node) {
 		var x, y;
 
-		point = new BMap.Point(node.longitude, node.latitude);
+		point = new BMap.Point(node.baidu_lng, node.baidu_lat);
 		points.push(point);
 		y = node.elevation*1;
 
@@ -78,12 +89,35 @@ function renderPath() {
 		chartData.push([x, y]);
 	});
 
-	console.log(yMin);
-	console.log(yMax);
-
 	polyline = new BMap.Polyline(points, rd.polylineBasicOpts);
 	map.addOverlay(polyline);
 	map.setViewport(points);
+
+	var icon,
+		marker;
+
+	$.each(poiNodes, function(idx, node) {
+		point = new BMap.Point(node.baidu_lng, node.baidu_lat);
+		icon = new BMap.Icon(rd.poiIcons[node.subtype], new BMap.Size(32, 32));
+		icon.setImageSize(new BMap.Size(32,32));
+		marker = new BMap.Marker(point, {icon: icon});
+
+		marker.addEventListener('click', function(e, target) {
+			var infoWin = new BMap.InfoWindow('描述: ' + node.description, {
+					width: 240,
+					height: 100,
+					enableMessage: false,
+					title: '名称' + node.title
+				});
+			this.openInfoWindow(infoWin);
+		});
+		map.addOverlay(marker);
+	});
+
+	renderChart(chartData, yMin, yMax);
+}
+
+function renderChart(chartData, yMin, yMax) {
 
 	$('#chart').highcharts({
 		chart: {
@@ -160,22 +194,6 @@ function renderPath() {
 			data: chartData
 		}]
 	});
-
-	console.log(chartData);
-	return
-
-	// startMarker = new BMap.Marker(points[0]);
-	// startMarker.addEventListener('click', function(e, target) {
-	// 	var storyInfo = rd.template('tpl-story-info', story);
-	// 		infoWin = new BMap.InfoWindow(storyInfo, {
-	// 			width: 240,
-	// 			height: 140,
-	// 			enableMessage: false,
-	// 			title: story.title
-	// 		});
-	// 	this.openInfoWindow(infoWin);
-	// });
-	// map.addOverlay(startMarker);
 }
 
 })(jQuery);

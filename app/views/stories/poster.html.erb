@@ -1,9 +1,30 @@
-<h1><%= @story.title %></h1>
-<ul>
-  <li>Distance: <%= @story.total_distance_km %>KM</li>
-  <li>Total Climbing: <%= @story.total_climbing_m %>M</li>
-  <li>Total Descending: <%= @story.total_descending_m %>M</li>
-  <li>Difficulty Index: <%= @story.difficulty_index %></li>
-</ul>
-<p><%= @story.content %></p>
-<img src=<%= @story.static_map_url_baidu 800, 200 %> />
+<div class="poster <%= params.key?('slim') ? 'slim' : 'wide' %>">
+
+	<h1><span class="type type-hiking">Biking</span><%= @story.title %></h1>
+	<ul>
+		<li>
+			<i class="icon-road"></i> 里程<br />
+			<em><%= @story.total_distance_km %> km</em>
+		</li>
+		<li>
+			<i class="icon-arrow-up"></i> 总爬升<br />
+			<em><%= @story.total_climbing_m %> m</em>
+		</li>
+		<li>
+			<i class="icon-arrow-down"></i> 总下降<br />
+			<em><%= @story.total_descending_m %> m</em>
+		</li>
+		<li>
+			<i class="icon-trophy"></i> 难度系数<br />
+			<em><%= @story.difficulty_index %></em>
+		</li>
+	</ul>
+	<img src=<%= @story.static_map_url_baidu (params.key?('slim') ? 400 : 800), 200 %> />
+	<p>
+		<span class="url-tips">相关照片和信息，请访问</span>
+		<em>http://road.lu/2Dsg</em>
+		<span class="src">此路线由 ROAD.LU 提供</span>
+	</p>
+	
+</div>
+
