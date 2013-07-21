@@ -82,6 +82,15 @@ html, body {
 			&:hover {
 				background-color: #f9f9f9;
 			}
+			
+			.info {
+				.desc {
+					color:#999;
+					span {
+						padding-right:10px;
+					}
+				}
+			}
 		}
 
 		.thumb {
