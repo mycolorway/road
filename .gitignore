@@ -15,6 +15,7 @@
 /tmp
 
 yetting.yml
+config/database.yml
 public/photos
 public/uploads
 public/posters

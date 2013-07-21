@@ -7,4 +7,12 @@ class ApplicationController < ActionController::Base
         unless params.key? key
     end
   end
+
+  def fake_auth!
+    @current_user = User.find 1
+  end
+
+  def current_user
+    @current_user
+  end
 end
