@@ -17,6 +17,7 @@
 yetting.yml
 public/photos
 public/uploads
+public/posters
 config/environments/production.rb
 config/environments/development.rb
 config/environments/test.rb

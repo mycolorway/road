@@ -193,4 +193,11 @@ class Story < ActiveRecord::Base
 
   def self.create_by_gps
   end
+
+  def self.gen_poster_snapshot(record_id)
+    record = find record_id
+    snapshot_dir = Rails.root.join("public/posters/#{record_id}").to_s
+    `phantomjs lib/poster_snapshoot.js 'http://#{Yetting.host}/stories/#{record_id}/poster' '#{snapshot_dir}/wide.jpg'`
+    `phantomjs lib/poster_snapshoot.js 'http://#{Yetting.host}/stories/#{record_id}/poster?slim' '#{snapshot_dir}/slim.jpg'`
+  end
 end
