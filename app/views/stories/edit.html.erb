@@ -1,5 +1,5 @@
 <div class="pg-story-edit">
-	<div class="bg" data-url="<%= random_cover(@story) %>"></div>
+	<div class="bg"></div>
 	<div class="center">
 		<div class="header">
 			<h1 class="logo">
@@ -33,14 +33,13 @@
 		</div>
 		<div class="intro">
 			<h5>更多信息</h5>
-			<textarea>
-				<%= @story.content %>
-			</textarea>
+			<textarea><%= @story.content %></textarea>
 		</div>
 	</div>
 </div>
 <script>
 	var storyNodes = <%= @story.path_nodes.to_json.html_safe %>
+	var poiNodes = <%= @story.pois.to_json.html_safe %>
 </script>
 <script type="text/html" id="tpl-poi-form">
 	<div class="poi-form">
@@ -51,10 +50,10 @@
 				</ul>
 			</div>
 			<div class="form-item">
-				<input type="text" class="title" name="title" placeholder="标题" />
+				<input type="text" class="title" name="title" placeholder="名称" />
 			</div>
 			<div class="form-item">
-				<textarea name="description" class="description"></textarea>
+				<textarea name="description" class="description" placeholder="描述"></textarea>
 			</div>
 			<input type="hidden" name="latitude" value="" />
 			<input type="hidden" name="longitude" value="" />

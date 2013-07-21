@@ -78,7 +78,7 @@ window.rd = {
 			data = el.data('poiInfo'),
 			form = $(rd.template('tpl-poi-form', {})),
 			iconList = $(rd.iconsList),
-			selectedIcon = iconList.first().find('img').attr('src');
+			selectedIcon = iconList.first();
 
 		if (data) {
 			form.attr('action', '/pois/' + data.id);
@@ -89,12 +89,11 @@ window.rd = {
 			form.find('.btn-del').show();
 		}
 
-
-
 		form.find('.icons-list').html(iconList)
 			.end().find('input[name=longitude]').val(pos.lng)
-			.end().find('input[name=latitude]').val(pos.lat);
-		form.find('.selected-icon').attr('src', selectedIcon);
+			.end().find('input[name=latitude]').val(pos.lat)
+			.end().find('input[name=subtype]').val(selectedIcon.data('subtype'));
+		form.find('.selected-icon').attr('src', selectedIcon.find('img').attr('src'));
 
 		icon.setInfoWindowAnchor(new BMap.Size(icon.size.width/2, -2));
 
@@ -114,12 +113,23 @@ window.rd = {
 
 				form.find('[name=subtype]').val(subtype)
 					.end().find('.selected-icon').attr('src', img.attr('src'));
+				
+				target.closest('.icons-list').hide();
 			}).on('click', '.selected-icon', function(e) {
 				e.preventDefault();
 				e.stopPropagation();
 
 				var target = $(e.target);
 				target.next().show();
+			})
+			.on('ajax:success', function(e, result) {
+				console.log(result);
+
+				marker.closeInfoWindow(infoWin);
+
+				var icon = new BMap.Icon(rd.poiIcons[result.subtype], new BMap.Size(32, 32));
+				icon.setImageSize(new BMap.Size(32,32));
+				marker.setIcon(icon);
 			});
 		});
 

@@ -15,10 +15,6 @@ $(function() {
 	.on('click', '.btn-close-marker-tool', function(){
 		markerTool.close();
 	})
-	.on('ajax:success', '.form-poi', function(e, result) {
-		console.log(result);
-
-	});
 });
 
 function renderBg() {
@@ -41,10 +37,6 @@ function initMap () {
 	map.addEventListener('load', function() {
 		renderPath();
 	})
-	map.addEventListener('click', function(e, target) {
-		console.log(e);
-		console.log(target);
-	});
 	map.centerAndZoom('成都', 11);
 
 	mapNav = new BMap.NavigationControl({
@@ -60,6 +52,8 @@ function initMap () {
 
 function renderPath() {
 	var points = [],
+		icon,
+		marker,
 		point;
 
 	$.each(storyNodes, function(idx, node) {
@@ -71,20 +65,16 @@ function renderPath() {
 	map.addOverlay(polyline);
 	map.setViewport(points);
 
-	return
+	$.each(poiNodes, function(idx, node) {
+		point = new BMap.Point(node.baidu_lng, node.baidu_lat);
+		icon = new BMap.Icon(rd.poiIcons[node.subtype], new BMap.Size(32, 32));
+		icon.setImageSize(new BMap.Size(32,32));
+		marker = new BMap.Marker(point, {icon: icon});
 
-	// startMarker = new BMap.Marker(points[0]);
-	// startMarker.addEventListener('click', function(e, target) {
-	// 	var storyInfo = rd.template('tpl-story-info', story);
-	// 		infoWin = new BMap.InfoWindow(storyInfo, {
-	// 			width: 240,
-	// 			height: 140,
-	// 			enableMessage: false,
-	// 			title: story.title
-	// 		});
-	// 	this.openInfoWindow(infoWin);
-	// });
-	// map.addOverlay(startMarker);
+		map.addOverlay(marker);
+	});
+
+	return
 }
 
 })(jQuery);
