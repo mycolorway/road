@@ -42,6 +42,7 @@ class PoisController < ApplicationController
                    baidu_lng: params[:longitude],
                    subtype: params[:subtype],
                    story: @story,
+                   elevation: 0,
                    creator: current_user)
 
     #respond_to do |format|
