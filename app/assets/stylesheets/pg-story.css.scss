@@ -212,5 +212,74 @@
 }
 
 .pg-story-edit {
+	.poi-form {
+		.icons {
+			float: right;
+			margin-right: 30px;
+			position: relative;
+
+			.selected-icon {
+				width: 32px;
+				height: 32px;
+				border: 1px solid #ccc;
+			}
+
+			.icons-list {
+				position: absolute;
+				width: 160px;
+				height: 96px;
+				background-color: #fff;
+				border: 1px solid #ccc;
+				right: 0;
+				top: 100%;
+				overflow: hidden;
+				display: none;
+
+				li {
+					float: left;
+					width: 32px;
+					height: 32px;
+					cursor: pointer;
+
+					img {
+						width: 32px;
+						height: 32px;
+						display: block;
+					}
+				}
+			}
+		}
+
+		.form-item {
+			margin-bottom: 10px;
+		}
+
+		input {
+			border: 1px solid #ccc;
+			@include radius(4px);
+			width: 220px;
+			height: 24px;
+			line-height: 24px;
+			padding: 3px;
+		}
+
+		textarea {
+			padding: 3px;
+			width: 220px;
+			border: 1px solid #ccc;
+			@include radius(4px);
+		}
+
+		.form-buttons {
+			.btn-del {
+				float: right;
+				display: none;
+
+				&:hover {
+					color: #cc0000;
+				}
+			}
+		}
+	}
 
 }
