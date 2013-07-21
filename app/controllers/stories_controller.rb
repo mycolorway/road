@@ -1,5 +1,6 @@
 class StoriesController < ApplicationController
-  before_filter :authenticate_user!, only: [:by_user, :create, :update]
+  #before_filter :authenticate_user!, only: [:by_user, :create, :update]
+  before_filter :fake_auth!, only: [:by_user, :create, :update]
 
   # GET /stories
   # GET /stories.json

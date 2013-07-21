@@ -1,4 +1,6 @@
 .poster {
+  background: white;
+
 	h1 {
 		font-size:30px;
 		height:49px; line-height:49px;
@@ -11,7 +13,7 @@
 		display:block;
 		float:left;
 		padding:0 10px;
-		
+
 		em {
 			font-size:32px;
 			font-family:'DataNum';
@@ -24,7 +26,7 @@
 		margin-right:5px;
 		overflow:hidden;
 		text-indent:-999px;
-		
+
 		&.type-biking {
 			background: image-url('icon-ride.png') no-repeat 50% 50%;
 		}

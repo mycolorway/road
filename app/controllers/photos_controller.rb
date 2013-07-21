@@ -1,4 +1,6 @@
 class PhotosController < ApplicationController
+  before_filter :fake_auth!, only: [:create]
+
   # GET /photos
   # GET /photos.json
   def index

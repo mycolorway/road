@@ -44,7 +44,7 @@
 </script>
 <script type="text/html" id="tpl-poi-form">
 	<div class="poi-form">
-		<form method="post" class="form form-poi" action="<%= story_pois_path(@story) %>" data-remote>
+		<form method="post" class="form form-poi" action="<%= story_pois_path @story, format: :json %>" data-remote>
 			<div class="icons">
 				<img class="selected-icon" src="" />
 				<ul class="icons-list">
