@@ -57,3 +57,13 @@ a {
 .ui-popup-screen.in {
 	opacity: 0.8;
 }
+
+body.disable-default-action {
+  -webkit-touch-callout:none ;
+  -webkit-user-select:none ;
+}
+
+.ui-icon-loading {
+	background: url(/assets/m/ajax-loader.gif);
+	background-size: 46px 46px;
+}

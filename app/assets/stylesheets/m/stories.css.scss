@@ -1,9 +1,25 @@
+// #mapmap {
+// 	display: none;
+// 	&.oomap {
+// 		display: block!important;
+// 		position: absolute;
+// 		width: 100%;
+// 		height: 100%;
+// 		top: 0;
+// 	}
+// }
+
+.screenshot {
+	display: none;
+}
+
 #page-stories {
 	overflow: hidden;
 
 	a.btn-nav:active {
 		opacity: 0.8;
 	}
+
 
 	.nav-bar {
 		.ui-corner-all {
@@ -74,7 +90,7 @@
 			color: #00626a;
 			font-size: 26px;
 			line-height: 26px!important;
-			width: 65%;
+			width: 75%!important;
 		}
 		.BMap_bubble_content {
 			margin-top: 8px;
@@ -163,7 +179,7 @@
 
 #page-stories-show {
 	.gallery {
-		margin: 40px 30px;
+		margin: 15px 30px -15px;
 		.pop-thumb {
 			height: 100px;
 			width: 100px;
@@ -173,6 +189,13 @@
 		.popphoto {
 			max-height:512px;
 		}
+	}
+
+	.story-desc {
+		font-size: 20px;
+		color: #555;
+		line-height: 30px;
+		margin: 30px 30px;
 	}
 
 	.other-links {

@@ -1,12 +1,12 @@
 <div id="page-stories-show">
-	<div data-role="header">
+	<div data-role="header" data-position="fixed">
 		<a href="/m/stories/" class="btn-nav"><i class="icon-angle-left"></i></a>
 		<h1><%= @story.title %></h1>
 		<a href="#" class="btn-nav"><img src="<%= asset_path 'm/btn_share.png' %>" class="button-share"></a>
 	</div>
 
 	<div class="container" id="container">
-		<img src="<%= asset_path 'm/app_route_detail_img.jpg' %>" alt="" class="detail-img">
+		<a href="" id="mapoo"><img src="<%= asset_path 'm/app_route_detail_img.jpg' %>" alt="" class="detail-img"></a>
 
 		<div class="gallery">
 			<% @story.photos.each do |p| %>
@@ -19,7 +19,9 @@
 			<% end %>
 		</div>
 
-		<div class="story-desc"></div>
+		<div class="story-desc">
+			<p>龙泉山，出成都东门，沿成渝高速公路前行约15千米，即是有成都平原东大门之称的龙泉驿镇龙泉镇位于成都平原与龙泉山交汇处，是龙泉驿区政府所在地。龙泉山是成都市的花木、水果生产基地，也是我国三大水蜜桃生产基地之一，因此有“花果山”的美名，现为成都市级风景名胜区。 龙泉山景区南北长18千米，东西宽13千米，面积230多平方千米，成渝高速公路隧道横穿中部而过。龙泉山林木面积约有50平方千米，水果有水蜜桃、梨、苹果、枇杷、葡萄等400多个品种，其中水蜜桃以个大皮薄、色鲜汁多闻名于世。新引进的巨峰葡萄、洞庭枇杷、大田李子等在省内外享有盛名。每年春天桃花和梨花盛开时，整个龙泉山一片锦绣，是成都人踏青旅游的好去处。 景区内还有北周文王碑（有较高的文物、书法价值）、蜀僖王陵，以及摩崖造像等古迹。山后还有古石经寺，依山起势，规模宏大，古木参天，现已修复接待游人。山前山后还有百工堰、山门寺水库、龙泉湖等水上游乐场所，可以泛舟，亦可以畅游。</p>
+		</div>
 
 		<div class="other-links">
 			<h4>相关链接</h4>
@@ -33,3 +35,8 @@
 	</div>	
 	
 </div>
+
+<!-- <div class="mapmap" id="mapmap"></div>
+<script>
+	var storyNodes = <%#= @story.path_nodes.to_json.html_safe %>
+</script> -->

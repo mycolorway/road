@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Road.lu</title>
+	<title>ROAD.路</title>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=0.5">
-	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=0.5, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-title" content="ROAD.路">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+	<link rel="apple-touch-icon-precomposed" href="/assets/m/apple-touch-icon.png" />
+	<link rel="apple-touch-startup-image" href="/assets/m/startup-iphone.png" media="screen"/>
 	<meta name="format-detection" content="telephone=no">
 
 	<link rel="apple-touch-icon-precomposed" href="<%= asset_path '' %>" />
@@ -12,7 +16,7 @@
 	<%= javascript_include_tag "m/application" %>
 	<%= csrf_meta_tags %>
 </head>
-<body>
+<body class="disable-default-action">
 	<div class="wrapper">
 		<%= yield %>
 	</div>

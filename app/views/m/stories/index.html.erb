@@ -1,5 +1,5 @@
 <div id="page-stories" data-page-stories>
-	<div data-role="header">
+	<div data-role="header" data-position="fixed">
 		<a href="/m/users/sign_in" class="btn-nav"><img src="<%= asset_path 'm/btn_dft_avatar.png' %>" class="avatar"></a>
 		<h1><img src="<%= asset_path 'm/app_logo.png' %>"></h1>
 		<a href="#" class="btn-nav"><img src="<%= asset_path 'm/btn_add.png' %>" class="button-create"></a>
@@ -43,8 +43,7 @@
 	</div>
 </div>
 <script type="text/html" id="tpl-story-info">
-	<img src="/assets/m/type_cycling.png">
+<a href="/m/stories/1" class="linksss"><img src="/assets/m/type_cycling.png">
 	<span>里程: {{ total_distance_km }}</span>
-	<span>难度系数: {{ difficulty_index }}</span>
-</script>
+	<span>难度系数: {{ difficulty_index }}</span></a></script>
 <input type="hidden" id="by-bounds-url" value="<%= by_bounds_stories_path format: :json %>" />

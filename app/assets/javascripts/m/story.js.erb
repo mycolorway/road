@@ -1,0 +1,86 @@
+// (function($) {
+
+// var pg = '.pg-story';
+// var map;
+
+// $(function() {
+// 	initMap();
+
+// 	$(document).on('click', '#mapoo', function() {
+// 		$('#mapmap').addClass('.oomap');
+// 	})
+// });
+
+// function renderBg() {
+// 	var bgEl = $('.bg'),
+// 		url = bgEl.data('url');
+
+// 	rd.loadImage(url, function(img) {
+// 		bgEl.css({
+//             'background-image': 'url(' + img.src + ')'
+//         });
+
+//         setTimeout(function() {
+//             bgEl.css('opacity', 1);
+//         }, 1000);
+// 	});
+// }
+
+// function initMap () {
+// 	map = new BMap.Map('mapmap', rd.mapBasicOpts);
+// 	map.addEventListener('load', function() {
+// 		renderPath();
+// 	});
+// 	map.centerAndZoom(new BMap.Point(104.194979, 30.592442), 12);
+
+// 	mapNav = new BMap.NavigationControl({
+// 		anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
+// 		showZoomInfo: false,
+// 		type: BMAP_NAVIGATION_CONTROL_ZOOM
+// 	});
+// 	map.addControl(mapNav);
+// 	map.enableScrollWheelZoom();
+// }
+
+// function renderPath() {
+// 	var points = [],
+// 		point,
+// 		firstPoint,
+// 		yMin,
+// 		yMax;
+
+// 	$.each(storyNodes, function(idx, node) {
+// 		var x, y;
+
+// 		point = new BMap.Point(node.longitude, node.latitude);
+// 		points.push(point);
+// 		y = node.elevation*1;
+
+// 		if (idx == 0) {
+// 			x = 0;
+// 			yMin = y;
+// 			yMax = y;
+// 			firstPoint = point;
+// 		} else {
+// 			x = map.getDistance(firstPoint, point);
+// 		}
+
+// 		x = (x/1000).toFixed(3);
+
+// 		if (y < yMin) {
+// 			yMin = y;
+// 		}
+
+// 		if (y > yMax) {
+// 			yMax = y;
+// 		}
+// 	});
+
+
+// 	polyline = new BMap.Polyline(points, rd.polylineBasicOpts);
+// 	map.addOverlay(polyline);
+// 	map.setViewport(points);
+
+// }
+
+// })(jQuery);
