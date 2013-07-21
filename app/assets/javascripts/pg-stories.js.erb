@@ -1,22 +1,35 @@
 (function($) {
 
-var pg = '.pg-stories';
 var map;
+var byBoundsReq;
 
 $(function() {
 	initMap();
 
+	resultsEl = $('.search-results');
+	$(window).on('resize', function() {
+		resultsEl.height($(this).height() - $('.header-main').outerHeight() - 20);
+	}).trigger('resize');
+
+	rd.preloadImages([
+		'<%= asset_path "loading.gif" %>'
+	]);
+
 	$(document)
-	.on('click', pg + ' .search-results li', function(e) {
+	.on('click', '.search-results li', function(e) {
 		var target = $(e.currentTarget),
 			polyline = target.data('polyline');
 
 		map.setViewport(polyline.getBounds());
 	})
-	.on('ajax:beforeSend', pg + ' .form-search', function(e, result) {
-		$('.search-results').html('<li class="loading"></li>');
+	.on('ajax:beforeSend', '.form-search', function(e, result) {
+		$('.search-results').html('<li class="loading"></li>').show();
+
+		if (byBoundsReq) {
+			byBoundsReq.abort();
+		}
 	})
-	.on('ajax:success', pg + ' .form-search', function(e, result) {
+	.on('ajax:success', '.form-search', function(e, result) {
 		var storiesEl = [];
 
 		map.clearOverlays();
@@ -36,7 +49,8 @@ function initMap () {
 	map.addEventListener('load', function() {
 		fetchStoriesByBounds();
 	});
-	map.centerAndZoom('成都', 11);
+
+	map.centerAndZoom(new BMap.Point(104.125958,30.539267), 13);
 
 	mapNav = new BMap.NavigationControl({
 		anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
@@ -56,7 +70,7 @@ function fetchStoriesByBounds() {
 			lng_w: bounds.zc
 		}
 
-	$.ajax({
+	byBoundsReq = $.ajax({
 		url: $('#by-bounds-url').val(),
 		type: 'get',
 		data: data,
@@ -65,6 +79,8 @@ function fetchStoriesByBounds() {
 			$.each(result, function(idx, story) {
 				renderPath(story);
 			});
+
+			byBoundsReq = null;
 		}
 	});
 }
