@@ -1,2 +1,2 @@
-web:    bundle exec thin start -p $PORT -e production
-sidekiq: bundle exec sidekiq -e production
+web:    bundle exec thin start -p $PORT
+sidekiq: bundle exec sidekiq
