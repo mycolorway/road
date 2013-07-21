@@ -113,9 +113,9 @@ class Story < ActiveRecord::Base
       join(';')
 
     color = if hiking?
-              '0xff0000'
+              '0x037d8f'
             else
-              '0xff0000'
+              '0xd60000'
             end
 
     'http://api.map.baidu.com/staticimage?'\
