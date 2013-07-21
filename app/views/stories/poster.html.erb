@@ -1,13 +1,18 @@
-<h1><%= @story.title %></h1>
-<ul>
-	<li class="type type-biking">Biking</li>
-	<li>里程: <%= @story.total_distance_km %> km</li>
-	<li>总爬升: <%= @story.total_climbing_m %> m</li>
-	<li>总下降: <%= @story.total_descending_m %> m</li>
-	<li>难度系数: <%= @story.difficulty_index %></li>
-</ul>
-<img src=<%= @story.static_map_url_baidu 800, 200 %> />
-<p>
-	<em>http://road.lu/2Dsg</em>
-	此路线由 ROAD.LU 提供
-</p>
+<div class="poster">
+
+	<h1><%= @story.title %></h1>
+	<ul>
+		<li class="type type-biking">Biking</li>
+		<li>里程: <%= @story.total_distance_km %> km</li>
+		<li>总爬升: <%= @story.total_climbing_m %> m</li>
+		<li>总下降: <%= @story.total_descending_m %> m</li>
+		<li>难度系数: <%= @story.difficulty_index %></li>
+	</ul>
+	<img src=<%= @story.static_map_url_baidu 800, 200 %> />
+	<p>
+		<span class="url-tips">相关照片和信息，请访问</span>
+		<em>http://road.lu/2Dsg</em>
+		<span class="src">此路线由 ROAD.LU 提供</span>
+	</p>
+	
+</div>
