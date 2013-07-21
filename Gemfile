@@ -33,9 +33,7 @@ gem 'quiet_assets'
 gem 'nokogiri'
 gem 'geocoder'
 gem 'mysql2'
-#gem 'sqlite3'
-
-
+gem 'imgkit'
 
 # Gems used only for assets and not required
 # in production environments by default.
