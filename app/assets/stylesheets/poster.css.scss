@@ -1,0 +1,35 @@
+.poster {
+	h1 {
+		font-size:30px;
+		height:49px; line-height:49px;
+	}
+	ul {
+		margin:20px 0 20px;
+		@include clearfix;
+	}
+	li {
+		display:block;
+		float:left;
+		padding:0 10px;
+		
+		em {
+			font-size:32px;
+			font-family:'DataNum';
+		}
+	}
+	.type {
+		display:inline-block;
+		width:49px;
+		height:49px;
+		margin-right:5px;
+		overflow:hidden;
+		text-indent:-999px;
+		
+		&.type-biking {
+			background: image-url('icon-ride.png') no-repeat 50% 50%;
+		}
+		&.type-hiking {
+			background: image-url('icon-hike.png') no-repeat 50% 50%;
+		}
+	}
+}
