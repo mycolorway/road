@@ -1,0 +1,69 @@
+.wrapper {
+	overflow: hidden;
+}
+
+.ui-header {
+	background: #00626a;
+	height: 88px;
+	border: 1px solid #333333;
+
+	.ui-title {
+		margin-top: 18px;
+		font-size: 36px;
+		font-weight: normal;
+		color: #fff;
+	}
+
+	.btn-nav {
+		margin-top: -6px;
+		img {
+			width: 60px;
+			height: 60px;
+			margin-top: 7px;
+		}
+		i {
+			margin-top: 7px;
+			width: 60px;
+			height: 60px;
+			color: #A6CFCD;
+			font-size: 70px;
+			padding: 10px 20px;
+		}
+	}
+}
+
+.ui-checkbox input, .ui-radio input {
+	display: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.ui-body-a, .ui-overlay-a {
+ 	border: 1px solid #444;
+	background: #222;
+	color: #fff;
+	text-shadow: 0 1px 0 #111;
+	font-weight: 400;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#444),to(#222));
+	background-image: -webkit-linear-gradient(#444,#222);
+	background-image: -moz-linear-gradient(#444,#222);
+	background-image: -ms-linear-gradient(#444,#222);
+	background-image: -o-linear-gradient(#444,#222);
+	background-image: linear-gradient(#444,#222);
+}
+
+.ui-popup-screen.in {
+	opacity: 0.8;
+}
+
+body.disable-default-action {
+  -webkit-touch-callout:none ;
+  -webkit-user-select:none ;
+}
+
+.ui-icon-loading {
+	background: url(/assets/m/ajax-loader.gif);
+	background-size: 46px 46px;
+}

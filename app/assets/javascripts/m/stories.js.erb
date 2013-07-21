@@ -1,0 +1,92 @@
+(function($) {
+
+var map;
+
+$(function() {
+	if ($('[data-page-stories]').length) {
+		initMap();
+	}
+	
+	$(document)
+	.on('click', '.ui-controlgroup-controls > .ui-radio:last', function(e) {
+		$('#map-container').fadeOut();
+		$('#list-container').fadeIn();
+	}).on('click', '.ui-controlgroup-controls > .ui-radio:first', function(e) {
+		$('#list-container').fadeOut();
+		$('#map-container').fadeIn();
+	});
+
+	$('.BMap_bubble_content').on('click', 'a.linksss', function(e) {
+		e.preventDefault();
+		$.mobile.changePage("/m/stories/1", { transition: "slide" });
+	});
+});
+
+function initMap () {
+	map = new BMap.Map('map-container', rd.mapBasicOpts);
+	map.addEventListener('load', function() {
+		fetchStoriesByBounds();
+	});
+	map.centerAndZoom(new BMap.Point(104.194979, 30.592442), 12);
+	map.enableScrollWheelZoom();
+}
+
+function fetchStoriesByBounds() {
+	var bounds = map.getBounds(),
+		data = {
+			lat_n: bounds.vc,
+			lng_e: bounds.wc,
+			lat_s: bounds.yc,
+			lng_w: bounds.zc
+		}
+
+	$.ajax({
+		url: $('#by-bounds-url').val(),
+		type: 'get',
+		data: data,
+		success: function(result) {
+			$.each(result, function(idx, story) {
+				renderPath(story);
+			});
+		}
+	});
+}
+
+
+function renderPath(story) {
+	var pinIcon = new BMap.Icon("/assets/m/pin_cycling.png", new BMap.Size(42, 80), {
+		anchor: new BMap.Size(21, 80)
+	});
+
+	$.ajax({
+		url: story.path_nodes_url,
+		type: 'get',
+		success: function(result) {
+			var nodes = result,
+				polyline,
+				points = [];
+
+			$.each(nodes, function(idx, node) {
+				points.push(new BMap.Point(node.longitude, node.latitude));
+			});
+
+			polyline = new BMap.Polyline(points, rd.polylineBasicOpts);
+			map.addOverlay(polyline);
+
+			startMarker = new BMap.Marker(points[0], {icon: pinIcon});
+			startMarker.addEventListener('click', function(e, target) {
+				var storyInfo = rd.template('tpl-story-info', story);
+					infoWin = new BMap.InfoWindow(storyInfo, {
+						width: 280,
+						height: 80,
+						enableMessage: false,
+						title: story.title
+					});
+				this.openInfoWindow(infoWin);
+			});
+			map.addOverlay(startMarker);
+		}
+	});
+}
+
+})(jQuery);

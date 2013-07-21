@@ -1,0 +1,10 @@
+(function($) {
+	
+	$(document).on('click', '.signin-list a', function() {
+		$('#page-signin .container.page-signin').fadeOut();
+		$('#page-signin h1').text('Maklu');
+		$('#page-signin .container.page-signin-show').fadeIn();
+
+	});
+
+})(jQuery);
