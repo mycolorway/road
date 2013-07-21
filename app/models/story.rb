@@ -112,9 +112,15 @@ class Story < ActiveRecord::Base
     points_query = nodes.map{ |node| "#{node.baidu_lng},#{node.baidu_lat}" }.\
       join(';')
 
+    color = if hiking?
+              '0xff0000'
+            else
+              '0xff0000'
+            end
+
     'http://api.map.baidu.com/staticimage?'\
       "center=#{center_lng},#{center_lat}&width=#{width}&height=#{height}&"\
-      "paths=#{points_query}&pathStyles=0xff0000,6,0.9"
+      "paths=#{points_query}&pathStyles=#{color},6,0.9"
   end
 
   def biking?
