@@ -69,8 +69,6 @@ window.rd = {
 	},
 
 	editPoi: function(e) {
-		console.log(e);
-
 		var marker = e.target,
 			pos = marker.getPosition(),
 			el = $(marker.F),
@@ -123,8 +121,6 @@ window.rd = {
 				target.next().show();
 			})
 			.on('ajax:success', function(e, result) {
-				console.log(result);
-
 				marker.closeInfoWindow(infoWin);
 
 				var icon = new BMap.Icon(rd.poiIcons[result.subtype], new BMap.Size(32, 32));
@@ -134,10 +130,6 @@ window.rd = {
 		});
 
 		marker.openInfoWindow(infoWin);
-	},
-
-	getPoints: function(story) {
-
 	},
 
 	poiIcons: [
