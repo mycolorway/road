@@ -45,14 +45,6 @@ class StoriesController < ApplicationController
 
   def poster
     @story = Story.find(params[:id])
-
-    respond_to do |format|
-      format.jpg do
-        @kit = IMGKit.new(render_to_string formats: [:html])
-        send_data(@kit.to_jpg, type: 'image/jpeg', disposition: 'inline')
-      end
-      format.html
-    end
   end
 
   # GET /stories/new
